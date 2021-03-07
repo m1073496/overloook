@@ -25,6 +25,29 @@ describe('Room', function() {
     expect(roomOne).to.be.an.instanceOf(Room);
   });
 
+  it('should have a room number', function() {
+    expect(roomOne.number).to.equal(12);
+  });
+
+  it('should have a room type', function() {
+    expect(roomOne.roomType).to.equal('single room');
+    expect(roomTwo.roomType).to.equal('junior suite');
+  });
+
+  it('should have a bidet status', function() {
+    expect(roomThree.bidet).to.equal(false);
+  });
+
+  it('should have a number of beds listed', function() {
+    expect(roomOne.numBeds).to.equal(2);
+    expect(roomThree.numBeds).to.equal(1);
+  });
+
+  it('should have a cost per night listed', function() {
+    expect(roomTwo.costPerNight).to.equal(496.41);
+    expect(roomTwo.costPerNight).to.equal(261.26);
+  });
+
 
 
 
