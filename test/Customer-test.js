@@ -40,6 +40,38 @@ describe('Customer', function() {
     expect(customerTwo.name).to.equal('Rocio Schuster');
   });
 
+  it('should find all bookings for a particular user', function() {
+    expect(customerTwo.findAllBookings()).to.equal(2);
+    expect(customerThree.findAllBookings()).to.equal(1);
+  });
+
+  it('should find all rooms booked for a particular user', function() {
+    expect(customerOne.findRoomsBooked()).to.equal(
+      {
+       "id": "5fwrgu4i7k55hl6t8",
+       "userID": 1,
+       "date": "2020/02/05",
+       "roomNumber": 12,
+       "roomServiceCharges": []
+     });
+
+   expect(customerTwo.findRoomsBooked()).to.equal(
+     {
+      "id": "5fwrgu4i7k55hl6uf",
+      "userID": 2,
+      "date": "2020/01/09",
+      "roomNumber": 18,
+      "roomServiceCharges": []
+     },
+     {
+      "id": "5fwrgu4i7k55hl6uy",
+      "userID": 2,
+      "date": "2020/01/24",
+      "roomNumber": 19,
+      "roomServiceCharges": []
+    });
+  });
+
   it('should know total amount spent on rooms', function() {
     expect(customerOne.findTotalSpent(roomsRepo, bookingsRepo)).to.equal(172.09);
     expect(customerTwo.findTotalSpent(roomsRepo, bookingsRepo)).to.equal(871.08);
