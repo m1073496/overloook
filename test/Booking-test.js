@@ -21,7 +21,7 @@ describe('Booking', function() {
     expect(Booking).to.be.a('function');
   });
 
-  it('should be an instance of a Room', function() {
+  it('should be an instance of a Booking', function() {
     expect(bookingOne).to.be.an.instanceOf(Booking);
   });
 
@@ -30,7 +30,7 @@ describe('Booking', function() {
   });
 
   it('should have a use ID associated with it', function() {
-    expect(bookingThree.userID).to.equal(3);
+    expect(bookingThree.userID).to.equal(2);
   });
 
   it('should have a date associated with it', function() {
