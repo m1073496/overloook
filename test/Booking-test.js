@@ -7,7 +7,7 @@ import {
   bookings
 } from '../src/data/test-data.js';
 
-describe('Room', function() {
+describe('Booking', function() {
 
   let bookingOne, bookingTwo, bookingThree;
 
