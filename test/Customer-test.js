@@ -41,35 +41,64 @@ describe('Customer', function() {
   });
 
   it('should find all bookings for a particular user', function() {
-    expect(customerTwo.findAllBookings()).to.equal(2);
-    expect(customerThree.findAllBookings()).to.equal(1);
+    expect(customerTwo.findMyBookings(bookingsRepo)).to.deep.equal([
+      {
+       "id": "5fwrgu4i7k55hl6uf",
+       "userID": 2,
+       "date": "2020/01/09",
+       "roomNumber": 18,
+       "roomServiceCharges": []
+      },
+      {
+       "id": "5fwrgu4i7k55hl6uy",
+       "userID": 2,
+       "date": "2020/01/24",
+       "roomNumber": 19,
+       "roomServiceCharges": []
+     }
+   ]);
+
+    expect(customerThree.findMyBookings(bookingsRepo)).to.deep.equal([
+      {
+       "id": "5fwrgu4i7k55hl6tl",
+       "userID": 3,
+       "date": "2020/01/10",
+       "roomNumber": 8,
+       "roomServiceCharges": []
+      }
+    ]);
   });
 
   it('should find all rooms booked for a particular user', function() {
-    expect(customerOne.findRoomsBooked()).to.equal(
+    expect(customerOne.findMyRooms(roomsRepo, bookingsRepo)).to.deep.equal([
       {
-       "id": "5fwrgu4i7k55hl6t8",
-       "userID": 1,
-       "date": "2020/02/05",
-       "roomNumber": 12,
-       "roomServiceCharges": []
-     });
+       "number": 12,
+       "roomType": "single room",
+       "bidet": false,
+       "bedSize": "twin",
+       "numBeds": 2,
+       "costPerNight": 172.09
+     }
+    ]);
 
-   expect(customerTwo.findRoomsBooked()).to.equal(
-     {
-      "id": "5fwrgu4i7k55hl6uf",
-      "userID": 2,
-      "date": "2020/01/09",
-      "roomNumber": 18,
-      "roomServiceCharges": []
-     },
-     {
-      "id": "5fwrgu4i7k55hl6uy",
-      "userID": 2,
-      "date": "2020/01/24",
-      "roomNumber": 19,
-      "roomServiceCharges": []
-    });
+    expect(customerTwo.findMyRooms(roomsRepo, bookingsRepo)).to.deep.equal([
+      {
+         "number": 18,
+         "roomType": "junior suite",
+         "bidet": false,
+         "bedSize": "king",
+         "numBeds": 2,
+         "costPerNight": 496.41
+       },
+       {
+        "number": 19,
+        "roomType": "single room",
+        "bidet": false,
+        "bedSize": "queen",
+        "numBeds": 1,
+        "costPerNight": 374.67
+       }
+    ]);
   });
 
   it('should know total amount spent on rooms', function() {

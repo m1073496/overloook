@@ -4,13 +4,25 @@ class Customer {
     this.name = customerData.name;
   };
 
+  findMyBookings(allBookings) {
+    return allBookings.filter(booking => this.id === booking.userID);
+  };
+
+  findMyRooms(allRooms, allBookings) {
+    let myBookings = this.findMyBookings(allBookings);
+
+    return myBookings.reduce((rooms, currentBooking) => {
+      let foundRoom = allRooms.find(room => room.number === currentBooking.roomNumber);
+      rooms.push(foundRoom);
+      return rooms
+    }, []);
+  };
+
   findTotalSpent(allRooms, allBookings) {
-    let myBookings = allBookings.filter(booking => this.id === booking.userID);
-    let myRooms = myBookings.map(booking => booking.roomNumber);
+    let myRooms = this.findMyRooms(allRooms, allBookings);
 
     let myCosts = myRooms.reduce((total, currentRoom) => {
-      let foundRoom = allRooms.find(room => room.number === currentRoom)
-      total += foundRoom.costPerNight
+      total += currentRoom.costPerNight
       return total
     }, 0);
 
