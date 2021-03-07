@@ -3,18 +3,22 @@ import {
 } from 'chai';
 
 import Room from '../src/Room.js';
+import Booking from "../src/Booking.js"
+
 import {
-  rooms
+  rooms,
+  bookings
 } from '../src/data/test-data.js';
 
 describe('Room', function() {
 
-  let roomOne, roomTwo, roomThree;
+  let roomOne, roomTwo, roomThree, allBookings;
 
   beforeEach(function() {
     roomOne = new Room (rooms[0]);
     roomTwo = new Room(rooms[1]);
     roomThree = new Room(rooms[2]);
+    allBookings = bookings.map(booking => new Booking(booking));
   });
 
   it('should be a function', function() {
@@ -51,6 +55,11 @@ describe('Room', function() {
   it('should have a cost per night listed', function() {
     expect(roomTwo.costPerNight).to.equal(496.41);
     expect(roomThree.costPerNight).to.equal(261.26);
+  });
+
+  it('should find availabiltiy status', function() {
+    expect(roomOne.findAvailability("2020/02/05", allBookings)).to.equal(false);
+    expect(roomTwo.findAvailability("2021/06/31", allBookings)).to.equal(true);
   });
 
 });
