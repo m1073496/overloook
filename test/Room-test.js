@@ -38,6 +38,11 @@ describe('Room', function() {
     expect(roomThree.bidet).to.equal(false);
   });
 
+  it('should have a bed size listed', function() {
+    expect(roomOne.bedSize).to.equal('twin');
+    expect(roomTwo.bedSize).to.equal('king');
+  })
+
   it('should have a number of beds listed', function() {
     expect(roomOne.numBeds).to.equal(2);
     expect(roomThree.numBeds).to.equal(1);
@@ -45,7 +50,7 @@ describe('Room', function() {
 
   it('should have a cost per night listed', function() {
     expect(roomTwo.costPerNight).to.equal(496.41);
-    expect(roomTwo.costPerNight).to.equal(261.26);
+    expect(roomThree.costPerNight).to.equal(261.26);
   });
 
 
