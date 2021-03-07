@@ -25,6 +25,14 @@ describe('Customer', function() {
     expect(customerOne).to.be.an.instanceOf(Customer);
   });
 
+  it('should have an ID number', function() {
+    expect(customerOne.id).to.equal(1);
+  });
+
+  it('should have a name', function() {
+    expect(customerTwo.name).to.equal('Rocio Schuster');
+  })
+
 
 
 });
