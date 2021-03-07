@@ -42,7 +42,7 @@ describe('Booking', function() {
   });
 
   it('should have room service charges listed', function() {
-    expect(bookingThree.roomServiceCharges).to.equal([]);
+    expect(bookingThree.roomServiceCharges).to.deep.equal([]);
   });
 
 });
