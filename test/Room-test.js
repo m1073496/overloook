@@ -53,22 +53,4 @@ describe('Room', function() {
     expect(roomThree.costPerNight).to.equal(261.26);
   });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 });

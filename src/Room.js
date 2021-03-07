@@ -6,16 +6,7 @@ class Room {
     this.bedSize = roomData.bedSize;
     this.numBeds = roomData.numBeds;
     this.costPerNight = roomData.costPerNight;
-
   };
-
-
-
-
-
-
-
-
 
 };
 
