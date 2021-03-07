@@ -3,18 +3,25 @@ import {
 } from 'chai';
 
 import Customer from '../src/Customer.js';
+import Booking from '../src/Booking.js';
+import Room from '../src/Room.js';
+
 import {
-  customers
+  customers,
+  rooms,
+  bookings
 } from '../src/data/test-data.js';
 
 describe('Customer', function() {
 
-  let customerOne, customerTwo, customerThree;
+  let customerOne, customerTwo, customerThree, roomsRepo, bookingsRepo;
 
   beforeEach(function() {
     customerOne = new Customer(customers[0]);
     customerTwo = new Customer(customers[1]);
     customerThree = new Customer(customers[2]);
+    roomsRepo = rooms.map(room => new Room(room));
+    bookingsRepo = bookings.map(booking => new Booking(booking));
   });
 
   it('should be a function', function() {
@@ -34,8 +41,8 @@ describe('Customer', function() {
   });
 
   it('should know total amount spent on rooms', function() {
-    expect(customerOne.findTotalSpent()).to.equal(172.09);
-    expect(customerTwo.findTotalSpent()).to.equal(635.93);
+    expect(customerOne.findTotalSpent(roomsRepo, bookingsRepo)).to.equal(172.09);
+    expect(customerTwo.findTotalSpent(roomsRepo, bookingsRepo)).to.equal(871.08);
   });
 
 });

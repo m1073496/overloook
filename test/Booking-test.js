@@ -30,7 +30,7 @@ describe('Booking', function() {
   });
 
   it('should have a use ID associated with it', function() {
-    expect(bookingThree.userID).to.equal(3);
+    expect(bookingThree.userID).to.equal(2);
   });
 
   it('should have a date associated with it', function() {
