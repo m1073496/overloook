@@ -31,8 +31,11 @@ describe('Customer', function() {
 
   it('should have a name', function() {
     expect(customerTwo.name).to.equal('Rocio Schuster');
-  })
+  });
 
-
+  it('should know total amount spent on rooms', function() {
+    expect(customerOne.findTotalSpent()).to.equal(172.09);
+    expect(customerTwo.findTotalSpent()).to.equal(635.93);
+  });
 
 });

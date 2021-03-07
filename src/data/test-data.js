@@ -37,6 +37,14 @@ export const rooms = [
     "bedSize": "king",
     "numBeds": 1,
     "costPerNight": 261.26
+  },
+  {
+   "number": 19,
+   "roomType": "single room",
+   "bidet": false,
+   "bedSize": "queen",
+   "numBeds": 1,
+   "costPerNight": 374.67
   }
 ];
 
@@ -55,6 +63,13 @@ export const bookings = [
   "roomNumber": 18,
   "roomServiceCharges": []
  },
+ {
+  "id": "5fwrgu4i7k55hl6uy",
+  "userID": 2,
+  "date": "2020/01/24",
+  "roomNumber": 19,
+  "roomServiceCharges": []
+},
  {
   "id": "5fwrgu4i7k55hl6tl",
   "userID": 3,
