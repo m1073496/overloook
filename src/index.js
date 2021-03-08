@@ -24,10 +24,17 @@ let allRooms;
 let userGreeting = document.querySelector('.user-greeting');
 let totalSpent = document.querySelector('.total-spent');
 let bookingsList = document.querySelector('.bookings');
+let bookNewRoomButton = document.getElementById('book-new-room');
+let datePicker = document.getElementById('date');
 
 
+function hide(element) {
+  element.classList.add('hidden');
+}
 
-
+function show(element) {
+  element.classList.remove('hidden');
+}
 
 function fetchData() {
   Promise.all([allCustomerDataAPI, bookingDataAPI, roomDataAPI])
@@ -54,6 +61,11 @@ function renderUserDashboard() {
   })
 }
 
+function bookNewRoom() {
+  hide(bookNewRoomButton);
+  show(datePicker);
+}
+
 
 
 
@@ -75,3 +87,5 @@ function renderUserDashboard() {
 
 
 window.addEventListener('load', fetchData);
+
+bookNewRoomButton.addEventListener('click', bookNewRoom);

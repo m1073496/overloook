@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en-US">
+<!-- <link rel="stylesheet" href="/dist/mc/calendar.min.css" /> -->
   <head>
     <title>Overlook</title>
   </head>
@@ -12,11 +13,14 @@
       <aside class="user-dash">
         <h2>Welcome, <span class="user-greeting"></span></h2>
         <p>Total spent to date: <span class="total-spent"></span></p>
-        <button>Book New Room</button>
+        <button id="book-new-room">Book New Room</button>
+        <label for="start" class="date-picker hidden">Select a date below:</label>
+        <input type="date" id="date" class="date-picker hidden" value="2021-03-10" min="2021-03-10" max="2040-12-31">
       </aside>
       <main class="bookings">
       </main>
     </div>
     <!-- Do not include the index.js or main.bundle.js file here - it is done automatically by the webpack server -->
   </body>
+  <!-- <script src="/dist/mc-calendar.min.js"></script> -->
 </html>
