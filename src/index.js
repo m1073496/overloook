@@ -26,6 +26,7 @@ let totalSpent = document.querySelector('.total-spent');
 let bookingsList = document.querySelector('.bookings');
 let bookNewRoomButton = document.getElementById('book-new-room');
 let datePicker = document.getElementById('date');
+let datePickerLabel = document.querySelector('.date-picker')
 
 
 function hide(element) {
@@ -64,6 +65,30 @@ function renderUserDashboard() {
 function bookNewRoom() {
   hide(bookNewRoomButton);
   show(datePicker);
+  show(datePickerLabel);
+}
+
+function searchForRooms(date) {
+  bookingsList.innerHTML = '';
+  let roomsAvailable = allRooms.map(room => {
+    if(room.findAvailability(date, allBookings) === true) {
+      return room
+    }
+  });
+
+  roomsAvailable.forEach(room => {
+    let bidetMessage;
+    if (room.bidet) {
+      bidetMessage = 'available';
+    } else {
+      bidetMessage = 'not available';
+    };
+
+    bookingsList.innerHTML += `
+      <section class="item">Room ${room.number} Room Type: ${room.roomType} Beds: ${room.numBeds}
+      Bed Size: ${room.bedSize} Bidet: ${bidetMessage} Nightly Rate: $${room.costPerNight}</section>
+    `;
+  })
 }
 
 
@@ -89,3 +114,8 @@ function bookNewRoom() {
 window.addEventListener('load', fetchData);
 
 bookNewRoomButton.addEventListener('click', bookNewRoom);
+
+datePicker.addEventListener('keypress', function(e) {
+    let dateSelected = datePicker.value;
+    searchForRooms(dateSelected);
+})
