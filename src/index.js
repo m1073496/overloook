@@ -159,7 +159,7 @@ function bookRoom(roomId) {
   })
     .then(response => response.json())
     .then(json => {
-      allBookings.push(new Booking(json.newBooking));
+      allBookings.unshift(new Booking(json.newBooking));
       renderUserDashboard();
     })
     .catch(err => alert('oh no'));
