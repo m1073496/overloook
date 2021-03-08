@@ -108,9 +108,15 @@ function displayRoomsAvailable(roomsAvailable) {
         <p>Bed Size: ${room.bedSize}</p>
         <p>Bidet: ${bidetMessage}</p>
         <p>Nightly Rate: $${room.costPerNight}</p>
+        <button class="book-now-button" id="room-${room.number}">Book Now!</button>
       </section>
     `;
-  })
+  });
+  
+  bookingsList.addEventListener('click', function(e) {
+    let roomId = e.target.id;
+    bookRoom(roomId);
+  });
 };
 
 function fiercelyApologize(whatWentWrong) {
@@ -133,6 +139,10 @@ function filterRooms(roomType) {
   } else {
     fiercelyApologize('no rooms');
   }
+}
+
+function bookRoom(roomId) {
+  console.log(roomId)
 }
 
 
