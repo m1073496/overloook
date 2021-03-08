@@ -38,6 +38,10 @@ function show(element) {
   element.classList.remove('hidden');
 }
 
+function reset(element) {
+  element.innerHTML = '';
+}
+
 function fetchData() {
   Promise.all([allCustomerDataAPI, bookingDataAPI, roomDataAPI])
     .then((values) => {
@@ -70,7 +74,7 @@ function bookNewRoom() {
 }
 
 function searchForRooms(date) {
-  bookingsList.innerHTML = '';
+  reset(bookingsList);
   show(dropDown);
   let roomsAvailable = allRooms.map(room => {
     if(room.findAvailability(date, allBookings) === true) {
@@ -78,6 +82,14 @@ function searchForRooms(date) {
     }
   });
 
+  if(roomsAvailable.length >= 1) {
+    displayRoomsAvailable(roomsAvailable);
+  } else {
+    fiercelyApologize();
+  }
+};
+
+function displayRoomsAvailable(roomsAvailable) {
   roomsAvailable.forEach(room => {
     let bidetMessage;
     if (room.bidet) {
@@ -91,6 +103,12 @@ function searchForRooms(date) {
       Bed Size: ${room.bedSize} Bidet: ${bidetMessage} Nightly Rate: $${room.costPerNight}</section>
     `;
   })
+};
+
+function fiercelyApologize() {
+  bookingsList.innerHTML += `
+    <h3>We're terribly sorry, but no rooms are available for the date you've selected. Please try another search!</h3>
+  `;
 }
 
 
@@ -117,7 +135,7 @@ window.addEventListener('load', fetchData);
 
 bookNewRoomButton.addEventListener('click', bookNewRoom);
 
-datePicker.addEventListener('keypress', function(e) {
+datePicker.addEventListener('keypress', function() {
     let dateSelected = datePicker.value;
     searchForRooms(dateSelected);
-})
+});
