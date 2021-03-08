@@ -20,6 +20,7 @@ import Booking from './Booking';
 let allCustomers;
 let allBookings;
 let allRooms;
+let dateSelected;
 
 let userGreeting = document.querySelector('.user-greeting');
 let totalSpent = document.querySelector('.total-spent');
@@ -76,6 +77,7 @@ function bookNewRoom() {
 function searchForRooms(date) {
   reset(bookingsList);
   show(dropDown);
+
   let roomsAvailable = allRooms.map(room => {
     if(room.findAvailability(date, allBookings) === true) {
       return room
@@ -105,10 +107,26 @@ function displayRoomsAvailable(roomsAvailable) {
   })
 };
 
-function fiercelyApologize() {
+function fiercelyApologize(whatWentWrong) {
+  let message;
+  if (whatWentWrong === 'no rooms') {
+    message = `the room type you've selected`
+  } else {
+    message =  `the date you've selected`
+  }
   bookingsList.innerHTML += `
-    <h3>We're terribly sorry, but no rooms are available for the date you've selected. Please try another search!</h3>
+    <h3>We're terribly sorry, but no rooms are available for ${message}. Please try another search!</h3>
   `;
+};
+
+function filterRooms(roomType) {
+  reset(bookingsList);
+  let filteredRooms = allRooms.filter(room => room.roomType === roomType && room.date !== dateSelected);
+  if (filteredRooms.length >= 1) {
+    displayRoomsAvailable(filteredRooms);
+  } else {
+    fiercelyApologize('no rooms');
+  }
 }
 
 
@@ -136,6 +154,25 @@ window.addEventListener('load', fetchData);
 bookNewRoomButton.addEventListener('click', bookNewRoom);
 
 datePicker.addEventListener('keypress', function() {
-    let dateSelected = datePicker.value;
+    dateSelected = datePicker.value;
     searchForRooms(dateSelected);
 });
+
+dropDown.addEventListener('click', function(e) {
+  let roomType;
+  switch (e.target.value) {
+    case 'Single Room':
+      roomType = 'single room';
+      break;
+    case 'Suite':
+      roomType = 'suite';
+      break;
+    case 'Junior Suite':
+      roomType = 'junior suite';
+      break;
+    case 'Residential Suite':
+      roomType = 'residential suite';
+      break;
+  }
+  filterRooms(roomType);
+})
