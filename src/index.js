@@ -20,20 +20,34 @@ import Booking from './Booking';
 let allCustomers;
 let allBookings;
 let allRooms;
+let dateSelected;
 
 let userGreeting = document.querySelector('.user-greeting');
 let totalSpent = document.querySelector('.total-spent');
-let bookingsList = document.querySelector('.bookings');
+let bookingsList = document.querySelector('.bookings-list');
+let bookNewRoomButton = document.getElementById('book-new-room');
+let datePicker = document.getElementById('date');
+let datePickerLabel = document.querySelector('.date-picker');
+let dropDown = document.querySelector('.dropdown');
 
 
+function hide(element) {
+  element.classList.add('hidden');
+}
 
+function show(element) {
+  element.classList.remove('hidden');
+}
 
+function reset(element) {
+  element.innerHTML = '';
+}
 
 function fetchData() {
   Promise.all([allCustomerDataAPI, bookingDataAPI, roomDataAPI])
     .then((values) => {
       createInstances(values);
-      renderUserDashboard()
+      renderUserDashboard();
     })
 }
 
@@ -44,7 +58,9 @@ function createInstances(data) {
 }
 
 function renderUserDashboard() {
-  console.log(allCustomers[3].findMyBookings(allBookings));
+  // console.log(allBookings);
+  hide(dropDown);
+  reset(bookingsList);
   userGreeting.innerText = allCustomers[3].name;
   totalSpent.innerText = allCustomers[3].findTotalSpent(allRooms, allBookings).toFixed(2);
   allCustomers[3].findMyBookings(allBookings).forEach(booking => {
@@ -54,6 +70,100 @@ function renderUserDashboard() {
   })
 }
 
+function bookNewRoom() {
+  hide(bookNewRoomButton);
+  show(datePicker);
+  show(datePickerLabel);
+}
+
+function searchForRooms(date) {
+  reset(bookingsList);
+  show(dropDown);
+
+  let roomsAvailable = allRooms.map(room => {
+    if(room.findAvailability(date, allBookings) === true) {
+      return room
+    }
+  });
+
+  if(roomsAvailable.length >= 1) {
+    displayRoomsAvailable(roomsAvailable);
+  } else {
+    fiercelyApologize();
+  }
+};
+
+function displayRoomsAvailable(roomsAvailable) {
+  roomsAvailable.forEach(room => {
+    let bidetMessage;
+    if (room.bidet) {
+      bidetMessage = 'available';
+    } else {
+      bidetMessage = 'not available';
+    };
+
+    bookingsList.innerHTML += `
+      <section class="item">
+        <h3>Room ${room.number}</h3>
+        <p>Room Type: ${room.roomType}</p>
+        <p>Beds: ${room.numBeds}</p>
+        <p>Bed Size: ${room.bedSize}</p>
+        <p>Bidet: ${bidetMessage}</p>
+        <p>Nightly Rate: $${room.costPerNight}</p>
+        <button class="book-now-button" id="${room.number}">Book Now!</button>
+      </section>
+    `;
+  });
+
+  bookingsList.addEventListener('click', function(e) {
+    let roomId = e.target.id;
+    bookRoom(roomId);
+  });
+};
+
+function fiercelyApologize(whatWentWrong) {
+  let message;
+  if (whatWentWrong === 'no rooms') {
+    message = `the room type you've selected`
+  } else {
+    message =  `the date you've selected`
+  }
+  bookingsList.innerHTML += `
+    <h3>We're terribly sorry, but no rooms are available for ${message}. Please try another search!</h3>
+  `;
+};
+
+function filterRooms(roomType) {
+  reset(bookingsList);
+  let filteredRooms = allRooms.filter(room => room.roomType === roomType && room.date !== dateSelected);
+  if (filteredRooms.length >= 1) {
+    displayRoomsAvailable(filteredRooms);
+  } else {
+    fiercelyApologize('no rooms');
+  }
+}
+
+function bookRoom(roomId) {
+  let date = dateSelected.replaceAll('-', '/');
+
+  fetch("http://localhost:3001/api/v1/bookings", {
+    method: 'POST',
+    headers: {
+  	   'Content-Type': 'application/json'
+     },
+     body: JSON.stringify({
+       "userID": 4,
+       "date": date,
+       "roomNumber": Number(roomId)
+     }),
+  })
+    .then(response => response.json())
+    .then(json => {
+      allBookings.unshift(new Booking(json.newBooking));
+      renderUserDashboard();
+    })
+    .catch(err => alert('oh no'));
+};
 
 
 
@@ -75,3 +185,29 @@ function renderUserDashboard() {
 
 
 window.addEventListener('load', fetchData);
+
+bookNewRoomButton.addEventListener('click', bookNewRoom);
+
+datePicker.addEventListener('keypress', function() {
+    dateSelected = datePicker.value;
+    searchForRooms(dateSelected);
+});
+
+dropDown.addEventListener('click', function(e) {
+  let roomType;
+  switch (e.target.value) {
+    case 'Single Room':
+      roomType = 'single room';
+      break;
+    case 'Suite':
+      roomType = 'suite';
+      break;
+    case 'Junior Suite':
+      roomType = 'junior suite';
+      break;
+    case 'Residential Suite':
+      roomType = 'residential suite';
+      break;
+  }
+  filterRooms(roomType);
+})
