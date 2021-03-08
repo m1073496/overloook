@@ -23,10 +23,11 @@ let allRooms;
 
 let userGreeting = document.querySelector('.user-greeting');
 let totalSpent = document.querySelector('.total-spent');
-let bookingsList = document.querySelector('.bookings');
+let bookingsList = document.querySelector('.bookings-list');
 let bookNewRoomButton = document.getElementById('book-new-room');
 let datePicker = document.getElementById('date');
-let datePickerLabel = document.querySelector('.date-picker')
+let datePickerLabel = document.querySelector('.date-picker');
+let dropDown = document.querySelector('.dropdown');
 
 
 function hide(element) {
@@ -70,6 +71,7 @@ function bookNewRoom() {
 
 function searchForRooms(date) {
   bookingsList.innerHTML = '';
+  show(dropDown);
   let roomsAvailable = allRooms.map(room => {
     if(room.findAvailability(date, allBookings) === true) {
       return room
