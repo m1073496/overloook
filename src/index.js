@@ -101,8 +101,14 @@ function displayRoomsAvailable(roomsAvailable) {
     };
 
     bookingsList.innerHTML += `
-      <section class="item">Room ${room.number} Room Type: ${room.roomType} Beds: ${room.numBeds}
-      Bed Size: ${room.bedSize} Bidet: ${bidetMessage} Nightly Rate: $${room.costPerNight}</section>
+      <section class="item">
+        <h3>Room ${room.number}</h3>
+        <p>Room Type: ${room.roomType}</p>
+        <p>Beds: ${room.numBeds}</p>
+        <p>Bed Size: ${room.bedSize}</p>
+        <p>Bidet: ${bidetMessage}</p>
+        <p>Nightly Rate: $${room.costPerNight}</p>
+      </section>
     `;
   })
 };

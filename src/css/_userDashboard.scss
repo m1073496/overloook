@@ -42,6 +42,8 @@ nav {
 .item {
   background-color: white;
   padding: 50px;
+  display: flex;
+  flex-direction: column;
 }
 
 /* Dropdown Button */
