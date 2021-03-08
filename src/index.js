@@ -47,7 +47,7 @@ function fetchData() {
   Promise.all([allCustomerDataAPI, bookingDataAPI, roomDataAPI])
     .then((values) => {
       createInstances(values);
-      renderUserDashboard()
+      renderUserDashboard();
     })
 }
 
@@ -58,7 +58,9 @@ function createInstances(data) {
 }
 
 function renderUserDashboard() {
-  console.log(allCustomers[3].findMyBookings(allBookings));
+  // console.log(allBookings);
+  hide(dropDown);
+  reset(bookingsList);
   userGreeting.innerText = allCustomers[3].name;
   totalSpent.innerText = allCustomers[3].findTotalSpent(allRooms, allBookings).toFixed(2);
   allCustomers[3].findMyBookings(allBookings).forEach(booking => {
@@ -108,11 +110,11 @@ function displayRoomsAvailable(roomsAvailable) {
         <p>Bed Size: ${room.bedSize}</p>
         <p>Bidet: ${bidetMessage}</p>
         <p>Nightly Rate: $${room.costPerNight}</p>
-        <button class="book-now-button" id="room-${room.number}">Book Now!</button>
+        <button class="book-now-button" id="${room.number}">Book Now!</button>
       </section>
     `;
   });
-  
+
   bookingsList.addEventListener('click', function(e) {
     let roomId = e.target.id;
     bookRoom(roomId);
@@ -142,9 +144,26 @@ function filterRooms(roomType) {
 }
 
 function bookRoom(roomId) {
-  console.log(roomId)
-}
+  let date = dateSelected.replaceAll('-', '/');
 
+  fetch("http://localhost:3001/api/v1/bookings", {
+    method: 'POST',
+    headers: {
+  	   'Content-Type': 'application/json'
+     },
+     body: JSON.stringify({
+       "userID": 4,
+       "date": date,
+       "roomNumber": Number(roomId)
+     }),
+  })
+    .then(response => response.json())
+    .then(json => {
+      allBookings.push(new Booking(json.newBooking));
+      renderUserDashboard();
+    })
+    .catch(err => alert('oh no'));
+};
 
 
 

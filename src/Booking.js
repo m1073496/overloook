@@ -4,7 +4,7 @@ class Booking {
     this.userID = bookingData.userID;
     this.date = bookingData.date;
     this.roomNumber = bookingData.roomNumber;
-    this.roomServiceCharges = bookingData.roomServiceCharges;
+    this.roomServiceCharges = bookingData.roomServiceCharges || [];
   };
 
 };
