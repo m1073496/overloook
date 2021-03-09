@@ -145,6 +145,9 @@ nav {
 
 .dropdown:hover .dropdown-content {display: block;}
 
+.book-now-button {
+  @extend .date-picker;
+}
 
 .hidden {
   display: none;

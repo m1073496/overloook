@@ -116,6 +116,7 @@ function displayRoomsAvailable(roomsAvailable) {
     bookingsList.innerHTML += `
       <section class="item-avail">
         <h3>Room ${room.number}</h3>
+        <div class="line"></div>
         <p>Room Type: ${room.roomType}</p>
         <p>Beds: ${room.numBeds}</p>
         <p>Bed Size: ${room.bedSize}</p>
