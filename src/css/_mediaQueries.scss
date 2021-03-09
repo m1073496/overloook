@@ -39,7 +39,34 @@
   }
 }
 
-@media screen and (max-width: 1024px) and (min-width: 550px) {
+.grid {
+  grid-template-columns: 1fr;
+  grid-template-rows: auto;
+}
+
+nav {
+  grid-column: 1 / 2;
+  grid-row: 1 / 2;
+}
+
+img {
+  height: 50px;
+  width: 50px;
+}
+
+.userDash {
+  grid-column: 1 / 2;
+  grid-row: 2 / 3;
+}
+
+.bookings {
+  grid-column: 1 / 2;
+  grid-row: auto;
+}
+
+
+
+@media screen and (max-width: 1025px) and (min-width: 550px) {
 
   .container {
     display: grid;
@@ -80,4 +107,46 @@
   #password {
     padding: 10px;
   }
+
+  .grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    font-size: 30px;
+  }
+
+  nav {
+    grid-column: 1 / 2;
+    grid-row: 1 / 2;
+
+    h1 {
+      font-size: 50px;
+    }
+
+    a {
+      font-size: 30px;
+    }
+  }
+
+  .userDash {
+    grid-column: 1 / 2;
+    grid-row: 2 / 3;
+  }
+
+  #book-new-room,
+  #date,
+  #find-rooms,
+  #dropdown-button,
+  .book-now-button {
+    font-size: 30px;
+  }
+
+  .bookings {
+    grid-column: 1 / 2;
+    grid-row: auto;
+  }
+
+  .room-num {
+    font-size: 25px;
+  }
+
 }
