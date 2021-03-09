@@ -98,9 +98,9 @@ function login() {
 };
 
 function renderUserDashboard() {
-  console.log(allBookings)
-  hide(dropDown);
-  reset(bookingsList);
+
+  displayDash();
+
   userGreeting.innerText = thisCustomer.name;
   totalSpent.innerText = thisCustomer.findTotalSpent(allRooms, allBookings).toFixed(2);
   thisCustomer.findMyBookings(allBookings).forEach(booking => {
@@ -116,6 +116,15 @@ function renderUserDashboard() {
       </section>
     `;
   })
+};
+
+function displayDash() {
+  hide(datePicker);
+  hide(datePickerLabel);
+  hide(findRoomsButton);
+  hide(dropDown);
+  show(bookNewRoomButton);
+  reset(bookingsList);
 }
 
 function bookNewRoom() {
