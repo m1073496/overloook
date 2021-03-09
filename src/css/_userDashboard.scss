@@ -37,7 +37,7 @@ nav {
   justify-content: space-around;
 
   & a:hover {
-    color: grey;
+    color: #E0E0E0;
     cursor: pointer;
   }
 }
@@ -113,45 +113,39 @@ nav {
 
 /* Dropdown Button */
 .dropbtn {
-  background-color: #4CAF50;
+  background-color: #0E0E0E;
   color: white;
   padding: 16px;
   font-size: 16px;
   border: none;
+
+  .dropdown {
+    position: relative;
+    display: inline-block;
+  }
 }
 
-/* The container <div> - needed to position the dropdown content */
-.dropdown {
-  position: relative;
-  display: inline-block;
-}
-
-/* Dropdown Content (Hidden by Default) */
 .dropdown-content {
   display: none;
   position: absolute;
-  background-color: #f1f1f1;
+  background-color: white;
   min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  z-index: 1;
 }
 
-/* Links inside the dropdown */
 .dropdown-content option {
   color: black;
   padding: 12px 16px;
   text-decoration: none;
   display: block;
+
+  &:hover {
+    background-color: #E0E0E0;
+  }
 }
 
-/* Change color of dropdown links on hover */
-.dropdown-content option:hover {background-color: #ddd;}
-
-/* Show the dropdown menu on hover */
 .dropdown:hover .dropdown-content {display: block;}
 
-/* Change the background color of the dropdown button when the dropdown content is shown */
-.dropdown:hover .dropbtn {background-color: #3e8e41;}
+
 .hidden {
   display: none;
 }
