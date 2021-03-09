@@ -8,14 +8,24 @@
   <body>
     <div class="grid">
       <nav>
-        <h1>Overlook</h1>
+        <div class="logo">
+          <img src="./images/turing-logo.png" alt="turing logo" height="100px" width="100px">
+          <h1>Overlook</h1>
+        </div>
+        <div class="nav-links">
+          <link class="link">Home </link>
+          <link class="link"> Book New Room </link>
+          <link class="link"> Log Out</link>
+        </div>
       </nav>
       <aside class="user-dash">
         <h2>Welcome, <span class="user-greeting"></span></h2>
+        <img src="./images/userIcon.png" alt="generic user icon" height="100px" width="100px">
         <p>Total spent to date: <span class="total-spent"></span></p>
         <button id="book-new-room">Book New Room</button>
         <label for="start" class="date-picker hidden">Select a date below:</label>
         <input type="date" id="date" class="date-picker hidden" value="2021-03-10" min="2021-03-10" max="2040-12-31">
+        <button id="find-rooms" class="date-picker hidden">Find Rooms!</button>
       </aside>
       <main class="bookings">
         <div class="dropdown hidden">
@@ -27,7 +37,8 @@
               <option value="Residential Suite" href="#">Residential Suite</option>
             </div>
         </div>
-        <section class="bookings-list" />
+        <section class="bookings-list">
+        </section>
       </main>
     </div>
     <!-- Do not include the index.js or main.bundle.js file here - it is done automatically by the webpack server -->

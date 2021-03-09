@@ -5,7 +5,9 @@
 import './css/base.scss';
 
 // An example of how you tell webpack to use an image (also need to link to it in the index.html)
-import './images/turing-logo.png'
+import './images/turing-logo.png';
+import './images/userIcon.png';
+import './images/marten-bjork-n_IKQDCyrG0-unsplash.jpg';
 
 import {
   allCustomerDataAPI,
@@ -28,6 +30,7 @@ let bookingsList = document.querySelector('.bookings-list');
 let bookNewRoomButton = document.getElementById('book-new-room');
 let datePicker = document.getElementById('date');
 let datePickerLabel = document.querySelector('.date-picker');
+let findRoomsButton = document.getElementById('find-rooms');
 let dropDown = document.querySelector('.dropdown');
 
 
@@ -74,6 +77,7 @@ function bookNewRoom() {
   hide(bookNewRoomButton);
   show(datePicker);
   show(datePickerLabel);
+  show(findRoomsButton);
 }
 
 function searchForRooms(date) {
@@ -188,7 +192,7 @@ window.addEventListener('load', fetchData);
 
 bookNewRoomButton.addEventListener('click', bookNewRoom);
 
-datePicker.addEventListener('keypress', function() {
+findRoomsButton.addEventListener('click', function() {
     dateSelected = datePicker.value;
     searchForRooms(dateSelected);
 });
