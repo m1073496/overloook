@@ -108,40 +108,48 @@ function searchForRooms(date) {
 
 function displayRoomsAvailable(roomsAvailable) {
   roomsAvailable.forEach(room => {
-    let bidetMessage;
-    if (room.bidet) {
-      bidetMessage = 'available';
-    } else {
-      bidetMessage = 'not available';
-    };
+    let newBooking = document.createElement('article');
+    bookingsList.appendChild(newBooking);
 
-    bookingsList.innerHTML += `
+    newBooking.innerHTML += `
       <section class="item-avail">
         <h3>Room ${room.number}</h3>
         <div class="line"></div>
         <p>Room Type: ${room.roomType}</p>
         <p>Beds: ${room.numBeds}</p>
         <p>Bed Size: ${room.bedSize}</p>
-        <p>Bidet: ${bidetMessage}</p>
+        <p>Bidet: ${findBidetMessage(room)}</p>
         <p>Nightly Rate: $${room.costPerNight}</p>
         <button class="book-now-button" id="${room.number}">Book Now!</button>
       </section>
     `;
-  });
 
-  bookingsList.addEventListener('click', function(e) {
-    let roomId = e.target.id;
-    bookRoom(roomId);
+    newBooking.addEventListener('click', function(e) {
+      let roomId = e.target.id;
+      bookRoom(roomId);
+    });
   });
+};
+
+function findBidetMessage(room) {
+  let bidetMessage;
+  if (room.bidet) {
+    bidetMessage = 'available';
+  } else {
+    bidetMessage = 'not available';
+  };
+  return bidetMessage;
 };
 
 function fiercelyApologize(whatWentWrong) {
   let message;
+
   if (whatWentWrong === 'no rooms') {
     message = `the room type you've selected`
   } else {
     message =  `the date you've selected`
-  }
+  };
+
   bookingsList.innerHTML += `
     <div class="item">
       <h3>We're terribly sorry, but no rooms are available for ${message}. Please try another search!</h3>
@@ -157,7 +165,7 @@ function filterRooms(roomType) {
   } else {
     fiercelyApologize('no rooms');
   }
-}
+};
 
 function bookRoom(roomId) {
   let date = dateSelected.replaceAll('-', '/');
