@@ -156,7 +156,12 @@ function fiercelyApologize(whatWentWrong) {
 
 function filterRooms(roomType) {
   reset(bookingsList);
-  let filteredRooms = allRooms.filter(room => room.roomType === roomType && room.date !== dateSelected);
+
+  let modifiedDate = dateSelected.replaceAll("-", "/");
+  let roomsAvailable = allRooms.filter(room => room.findAvailability(modifiedDate, allBookings) === true);
+
+
+  let filteredRooms = roomsAvailable.filter(room => room.roomType === roomType && room.date !== dateSelected);
   if (filteredRooms.length >= 1) {
     displayRoomsAvailable(filteredRooms);
   } else {
