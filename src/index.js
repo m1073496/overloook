@@ -75,6 +75,8 @@ function getUser() {
   let customerNum = findUserName();
 
   if (customerNum) {
+    userNameInput.value = "";
+    passwordInput.value = "";
     Promise.all([getSingleUser(customerNum), bookingDataAPI, roomDataAPI])
       .then((values) => {
         createInstances(values);
@@ -271,3 +273,8 @@ dropDown.addEventListener('click', function(e) {
 });
 
 homeButton.addEventListener('click', renderUserDashboard);
+
+logOutButton.addEventListener('click', function() {
+  hide(userDash);
+  show(loginView);
+})
