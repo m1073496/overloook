@@ -96,6 +96,7 @@ function login() {
 };
 
 function renderUserDashboard() {
+  console.log(allBookings)
   hide(dropDown);
   reset(bookingsList);
   userGreeting.innerText = thisCustomer.name;
@@ -211,7 +212,7 @@ function bookRoom(roomId) {
   	   'Content-Type': 'application/json'
      },
      body: JSON.stringify({
-       "userID": 4,
+       "userID": thisCustomer.id,
        "date": date,
        "roomNumber": Number(roomId)
      }),
