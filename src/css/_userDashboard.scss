@@ -1,9 +1,5 @@
-body {
-  margin: 0;
-  background: $primary-background;
-}
-
 .grid {
+  background: $primary-background;
   height: 100vh;
   padding: 20px;
   display: grid;
@@ -147,8 +143,4 @@ nav {
 
 .book-now-button {
   @extend .date-picker;
-}
-
-.hidden {
-  display: none;
 }

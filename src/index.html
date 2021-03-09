@@ -1,74 +1,76 @@
 <!DOCTYPE html>
 <html lang="en-US">
-<!-- <link rel="stylesheet" href="/dist/mc/calendar.min.css" /> -->
+
   <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
     <title>Overlook</title>
   </head>
 
   <body>
-    <div class="container">
-      <h1 class="login-header">Overlook</h1>
-      <div class="login-view">
-        <div class="credentials">
-          <span>Username: </span><input type="text" id="username"></input>
-          <span>Password: </span><input type="text" id="password"></input>
-          <button id="login">Log in</button>
-      </div>
-      </div>
-    </div>
 
-    <div id="user-dashboard" class="grid hidden">
-
-      <nav>
-        <div class="logo">
-          <img src="./images/turing-logo.png" alt="turing logo" height="100px" width="100px">
-          <h1>Overlook</h1>
+      <div class="container">
+        <h1 class="login-header">Overlook</h1>
+        <div class="login-view">
+          <div class="credentials">
+            <span class="input-label">Username: </span><input type="text" id="username"></input>
+            <span class=input-label>Password: </span><input type="text" id="password"></input>
+            <button id="login">Log in</button>
         </div>
+        </div>
+      </div>
 
-        <div class="nav-links">
-          <div class="link">
-            <a id="home-button">Home </a>
+      <div id="user-dashboard" class="grid hidden">
+
+        <nav>
+          <div class="logo">
+            <img src="./images/turing-logo.png" alt="turing logo" height="100px" width="100px">
+            <h1>Overlook</h1>
           </div>
 
-          <div class="link">
-            <a id="log-out"> Log Out</a>
-          </div>
-        </div>
-      </nav>
-
-      <aside class="user-dash">
-        <div class="user-info">
-          <h2>Welcome, <span class="user-greeting"></span>!</h2>
-          <img src="./images/userIcon.png" alt="generic user icon" height="100px" width="100px">
-          <p>Total spent to date: $<span class="total-spent"></span></p>
-        </div>
-
-        <div class="line"></div>
-
-        <div class="input-form">
-          <button class="find-rooms"id="book-new-room">Book New Room</button>
-          <label for="start" class="date-picker hidden">Select a date below:</label>
-          <input type="date" id="date" class="date-picker hidden" value="2021-03-10" min="2019-03-10" max="2040-12-31">
-          <button id="find-rooms" class="date-picker hidden">Find Rooms!</button>
-        </div>
-      </aside>
-
-      <main class="bookings">
-        <div class="dropdown hidden">
-          <button id="dropdown-button" class="dropbtn">Room Type</button>
-            <div class="dropdown-content">
-              <option value="Single Room" href="#">Single Room</option>
-              <option value="Suite" href="#">Suite</option>
-              <option value="Junior Suite" href="#">Junior Suite</option>
-              <option value="Residential Suite" href="#">Residential Suite</option>
+          <div class="nav-links">
+            <div class="link">
+              <a id="home-button">Home </a>
             </div>
-        </div>
 
-        <section class="bookings-list"></section>
+            <div class="link">
+              <a id="log-out"> Log Out</a>
+            </div>
+          </div>
+        </nav>
 
-      </main>
-    </div>
-    <!-- Do not include the index.js or main.bundle.js file here - it is done automatically by the webpack server -->
+        <aside class="user-dash">
+          <div class="user-info">
+            <h2>Welcome, <span class="user-greeting"></span>!</h2>
+            <img src="./images/userIcon.png" alt="generic user icon" height="100px" width="100px">
+            <p>Total spent to date: $<span class="total-spent"></span></p>
+          </div>
+
+          <div class="line"></div>
+
+          <div class="input-form">
+            <button class="find-rooms"id="book-new-room">Book New Room</button>
+            <label for="start" class="date-picker hidden">Select a date below:</label>
+            <input type="date" id="date" class="date-picker hidden" value="2021-03-10" min="2019-03-10" max="2040-12-31">
+            <button id="find-rooms" class="date-picker hidden">Find Rooms!</button>
+          </div>
+        </aside>
+
+        <main class="bookings">
+          <div class="dropdown hidden">
+            <button id="dropdown-button" class="dropbtn">Room Type</button>
+              <div class="dropdown-content">
+                <option value="Single Room" href="#">Single Room</option>
+                <option value="Suite" href="#">Suite</option>
+                <option value="Junior Suite" href="#">Junior Suite</option>
+                <option value="Residential Suite" href="#">Residential Suite</option>
+              </div>
+          </div>
+
+          <section class="bookings-list"></section>
+
+        </main>
+      </div>
+
   </body>
-  <!-- <script src="/dist/mc-calendar.min.js"></script> -->
 </html>
