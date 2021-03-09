@@ -74,8 +74,8 @@ function renderUserDashboard() {
       <section class="user-list">
         <h3>${modifiedDate}</h3>
         <p>Room ${booking.roomNumber}</p>
-        <p>${roomInfoForBooking.roomType}</p>
-        <p>$${roomInfoForBooking.costPerNight} / night</p>
+        <div class="line"></div>
+        <p>A ${roomInfoForBooking.roomType} with ${roomInfoForBooking.numBeds} ${roomInfoForBooking.bedSize} bed(s), starting at $${roomInfoForBooking.costPerNight} / night.</p>
       </section>
     `;
   })
