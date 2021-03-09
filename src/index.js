@@ -107,12 +107,14 @@ function renderUserDashboard() {
     let modifiedDate = booking.date.split('/').sort((a, b) => a - b).join('/');
 
     let roomInfoForBooking = allRooms.find(room => room.number === booking.roomNumber);
+    let bidetMessage = findBidetMessage(roomInfoForBooking);
     bookingsList.innerHTML += `
       <section class="item">
         <h3>${modifiedDate}</h3>
         <p class="room-num">Room ${booking.roomNumber}</p>
         <div class="line"></div>
         <p class="room-num">A ${roomInfoForBooking.roomType} with ${roomInfoForBooking.numBeds} ${roomInfoForBooking.bedSize} bed(s), starting at $${roomInfoForBooking.costPerNight} / night.</p>
+        <p class="room-num">${bidetMessage.bookingsList}</p>
       </section>
     `;
   })
@@ -160,7 +162,7 @@ function displayRoomsAvailable(roomsAvailable) {
         <p>Room Type: ${room.roomType}</p>
         <p>Beds: ${room.numBeds}</p>
         <p>Bed Size: ${room.bedSize}</p>
-        <p>Bidet: ${findBidetMessage(room)}</p>
+        <p>Bidet: ${findBidetMessage(room).newBooking}</p>
         <p>Nightly Rate: $${room.costPerNight}</p>
         <button class="book-now-button" id="${room.number}">Book Now!</button>
       </section>
@@ -174,13 +176,20 @@ function displayRoomsAvailable(roomsAvailable) {
 };
 
 function findBidetMessage(room) {
-  let bidetMessage;
+  let newBooking, bookingsList;
+  
   if (room.bidet) {
-    bidetMessage = 'available';
+    newBooking = 'available';
+    bookingsList = '(bidet available)';
   } else {
-    bidetMessage = 'not available';
+    newBooking = 'not available';
+    bookingsList = '(bidet unavailable)';
   };
-  return bidetMessage;
+
+  return  {
+    newBooking,
+    bookingsList
+  };
 };
 
 function fiercelyApologize(whatWentWrong) {
