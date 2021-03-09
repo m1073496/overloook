@@ -6,6 +6,12 @@ const checkForErrors = response => {
   }
 }
 
+export function getSingleUser(userNum) {
+  return fetch(`http://localhost:3001/api/v1/customers/${userNum}`)
+    .then(checkForErrors)
+    .catch(err => alert(err))
+}
+
 export const allCustomerDataAPI = fetch("http://localhost:3001/api/v1/customers")
   .then(checkForErrors)
   .catch(err => alert(err))

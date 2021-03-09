@@ -1,16 +1,12 @@
-// This is the JavaScript entry file - your code begins here
-// Do not delete or rename this file ********
-
-// An example of how you tell webpack to use a CSS (SCSS) file
 import './css/base.scss';
 
-// An example of how you tell webpack to use an image (also need to link to it in the index.html)
 import './images/turing-logo.png';
 import './images/userIcon.png';
-import './images/marten-bjork-n_IKQDCyrG0-unsplash.jpg';
 
 import {
-  allCustomerDataAPI,
+  // allCustomerDataAPI,
+  getSingleUser,
+  singleCustomerDataAPI,
   bookingDataAPI,
   roomDataAPI
 } from './API.js';
@@ -19,7 +15,7 @@ import Customer from './Customer';
 import Room from './Room';
 import Booking from './Booking';
 
-let allCustomers;
+let thisCustomer;
 let allBookings;
 let allRooms;
 let dateSelected;
@@ -34,6 +30,11 @@ const findRoomsButton = document.getElementById('find-rooms');
 const dropDown = document.querySelector('.dropdown');
 const homeButton = document.getElementById('home-button');
 const logOutButton = document.getElementById('log-out');
+const userDash = document.getElementById('user-dashboard');
+const userNameInput = document.getElementById('username');
+const passwordInput = document.getElementById('password');
+const loginButton = document.getElementById('login');
+const loginView = document.querySelector('.container');
 
 
 function hide(element) {
@@ -48,26 +49,59 @@ function reset(element) {
   element.innerHTML = '';
 }
 
-function fetchData() {
-  Promise.all([allCustomerDataAPI, bookingDataAPI, roomDataAPI])
-    .then((values) => {
-      createInstances(values);
-      renderUserDashboard();
-    })
-}
+function findUserName() {
+  let possibleUsernames = [];
+  for (let i = 1; i < 51; i++) {
+    possibleUsernames.push(`customer${i}`);
+  };
+
+  let foundUserName = possibleUsernames.find(username => username === userNameInput.value);
+
+  if (foundUserName && passwordInput.value === 'overlook2021') {
+    let customerNum;
+
+    if (foundUserName.length === 9) {
+      customerNum = foundUserName.charAt(8);
+    } else {
+      customerNum = foundUserName.charAt(8) + foundUserName.charAt(9);
+    };
+    return customerNum;
+  } else {
+    alert("Incorrect username/password combo, please try again 🦑")
+  };
+};
+
+function getUser() {
+  let customerNum = findUserName();
+
+  if (customerNum) {
+    Promise.all([getSingleUser(customerNum), bookingDataAPI, roomDataAPI])
+      .then((values) => {
+        createInstances(values);
+        login();
+      });
+    };
+};
 
 function createInstances(data) {
-  allCustomers = data[0].customers.map(customer => new Customer(customer));
+  thisCustomer = new Customer(data[0]);
   allBookings = data[1].bookings.map(booking => new Booking(booking));
   allRooms = data[2].rooms.map(room => new Room(room));
-}
+};
+
+function login() {
+  hide(loginView);
+  show(userDash);
+  renderUserDashboard();
+};
 
 function renderUserDashboard() {
+  console.log(allBookings)
   hide(dropDown);
   reset(bookingsList);
-  userGreeting.innerText = allCustomers[3].name;
-  totalSpent.innerText = allCustomers[3].findTotalSpent(allRooms, allBookings).toFixed(2);
-  allCustomers[3].findMyBookings(allBookings).forEach(booking => {
+  userGreeting.innerText = thisCustomer.name;
+  totalSpent.innerText = thisCustomer.findTotalSpent(allRooms, allBookings).toFixed(2);
+  thisCustomer.findMyBookings(allBookings).forEach(booking => {
     let modifiedDate = booking.date.split('/').sort((a, b) => a - b).join('/');
 
     let roomInfoForBooking = allRooms.find(room => room.number === booking.roomNumber);
@@ -178,7 +212,7 @@ function bookRoom(roomId) {
   	   'Content-Type': 'application/json'
      },
      body: JSON.stringify({
-       "userID": 4,
+       "userID": thisCustomer.id,
        "date": date,
        "roomNumber": Number(roomId)
      }),
@@ -208,9 +242,7 @@ function bookRoom(roomId) {
 
 
 
-
-
-window.addEventListener('load', fetchData);
+loginButton.addEventListener('click', getUser);
 
 bookNewRoomButton.addEventListener('click', bookNewRoom);
 
