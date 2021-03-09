@@ -45,10 +45,26 @@ nav {
   grid-column: 1 / 2;
   padding: 20px;
   background-color: $pink;
+  border-radius: 5px;
+  display: grid;
+  grid-template-rows: 1.5fr .5fr 1fr;
+}
+
+.user-info {
+  text-align: center;
+}
+
+.input-form {
+  grid-row: 3 / 4;
+  text-align: center;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
-  border-radius: 5px;
+  justify-content: space-between;
+}
+
+.date-picker,
+.find-rooms {
+  height: 5vh;
 }
 
 .bookings {
@@ -73,19 +89,18 @@ nav {
   border-radius: 5px;
 }
 
-.user-list {
-  @extend .item;
-  display: grid;
-  // grid-template-columns:
+.room-num {
+  text-align: center;
+  font-size: 20px;
 }
 
 .line {
   display: block;
-    height: 1px;
-    border: 0;
-    border-top: 1px solid #ccc;
-    margin: 1em 0;
-    padding: 0;
+  height: 1px;
+  border: 0;
+  border-top: 1px solid #ccc;
+  margin: 1em 0;
+  padding: 0;
 }
 
 /* Dropdown Button */

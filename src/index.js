@@ -61,7 +61,6 @@ function createInstances(data) {
 }
 
 function renderUserDashboard() {
-  // console.log(allBookings);
   hide(dropDown);
   reset(bookingsList);
   userGreeting.innerText = allCustomers[3].name;
@@ -71,11 +70,11 @@ function renderUserDashboard() {
 
     let roomInfoForBooking = allRooms.find(room => room.number === booking.roomNumber);
     bookingsList.innerHTML += `
-      <section class="user-list">
+      <section class="item">
         <h3>${modifiedDate}</h3>
-        <p>Room ${booking.roomNumber}</p>
+        <p class="room-num">Room ${booking.roomNumber}</p>
         <div class="line"></div>
-        <p>A ${roomInfoForBooking.roomType} with ${roomInfoForBooking.numBeds} ${roomInfoForBooking.bedSize} bed(s), starting at $${roomInfoForBooking.costPerNight} / night.</p>
+        <p class="room-num">A ${roomInfoForBooking.roomType} with ${roomInfoForBooking.numBeds} ${roomInfoForBooking.bedSize} bed(s), starting at $${roomInfoForBooking.costPerNight} / night.</p>
       </section>
     `;
   })
