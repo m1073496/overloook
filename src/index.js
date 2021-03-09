@@ -5,7 +5,9 @@
 import './css/base.scss';
 
 // An example of how you tell webpack to use an image (also need to link to it in the index.html)
-import './images/turing-logo.png'
+import './images/turing-logo.png';
+import './images/userIcon.png';
+import './images/marten-bjork-n_IKQDCyrG0-unsplash.jpg';
 
 import {
   allCustomerDataAPI,
@@ -28,6 +30,7 @@ let bookingsList = document.querySelector('.bookings-list');
 let bookNewRoomButton = document.getElementById('book-new-room');
 let datePicker = document.getElementById('date');
 let datePickerLabel = document.querySelector('.date-picker');
+let findRoomsButton = document.getElementById('find-rooms');
 let dropDown = document.querySelector('.dropdown');
 
 
@@ -58,14 +61,21 @@ function createInstances(data) {
 }
 
 function renderUserDashboard() {
-  // console.log(allBookings);
   hide(dropDown);
   reset(bookingsList);
   userGreeting.innerText = allCustomers[3].name;
   totalSpent.innerText = allCustomers[3].findTotalSpent(allRooms, allBookings).toFixed(2);
   allCustomers[3].findMyBookings(allBookings).forEach(booking => {
+    let modifiedDate = booking.date.split('/').sort((a, b) => a - b).join('/');
+
+    let roomInfoForBooking = allRooms.find(room => room.number === booking.roomNumber);
     bookingsList.innerHTML += `
-      <section class="item">Date: ${booking.date} Room Number: ${booking.roomNumber}</section>
+      <section class="item">
+        <h3>${modifiedDate}</h3>
+        <p class="room-num">Room ${booking.roomNumber}</p>
+        <div class="line"></div>
+        <p class="room-num">A ${roomInfoForBooking.roomType} with ${roomInfoForBooking.numBeds} ${roomInfoForBooking.bedSize} bed(s), starting at $${roomInfoForBooking.costPerNight} / night.</p>
+      </section>
     `;
   })
 }
@@ -74,6 +84,7 @@ function bookNewRoom() {
   hide(bookNewRoomButton);
   show(datePicker);
   show(datePickerLabel);
+  show(findRoomsButton);
 }
 
 function searchForRooms(date) {
@@ -103,8 +114,9 @@ function displayRoomsAvailable(roomsAvailable) {
     };
 
     bookingsList.innerHTML += `
-      <section class="item">
+      <section class="item-avail">
         <h3>Room ${room.number}</h3>
+        <div class="line"></div>
         <p>Room Type: ${room.roomType}</p>
         <p>Beds: ${room.numBeds}</p>
         <p>Bed Size: ${room.bedSize}</p>
@@ -129,7 +141,9 @@ function fiercelyApologize(whatWentWrong) {
     message =  `the date you've selected`
   }
   bookingsList.innerHTML += `
-    <h3>We're terribly sorry, but no rooms are available for ${message}. Please try another search!</h3>
+    <div class="item">
+      <h3>We're terribly sorry, but no rooms are available for ${message}. Please try another search!</h3>
+    </div>
   `;
 };
 
@@ -188,7 +202,7 @@ window.addEventListener('load', fetchData);
 
 bookNewRoomButton.addEventListener('click', bookNewRoom);
 
-datePicker.addEventListener('keypress', function() {
+findRoomsButton.addEventListener('click', function() {
     dateSelected = datePicker.value;
     searchForRooms(dateSelected);
 });
