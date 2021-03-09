@@ -93,11 +93,8 @@ function searchForRooms(date) {
   reset(bookingsList);
   show(dropDown);
 
-  let roomsAvailable = allRooms.map(room => {
-    if(room.findAvailability(date, allBookings) === true) {
-      return room
-    }
-  });
+  let modifiedDate = date.replaceAll("-", "/");
+  let roomsAvailable = allRooms.filter(room => room.findAvailability(modifiedDate, allBookings) === true);
 
   if(roomsAvailable.length >= 1) {
     displayRoomsAvailable(roomsAvailable);
