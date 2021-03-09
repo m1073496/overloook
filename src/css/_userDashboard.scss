@@ -31,10 +31,9 @@ nav {
 
 .nav-links {
   display: flex;
-  align-items: center;
-  min-width: 30%;
-  font-size: 20px;
+  flex-direction: column;
   justify-content: space-around;
+  font-size: 20px;
 
   & a:hover {
     color: #E0E0E0;

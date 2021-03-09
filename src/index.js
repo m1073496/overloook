@@ -24,14 +24,16 @@ let allBookings;
 let allRooms;
 let dateSelected;
 
-let userGreeting = document.querySelector('.user-greeting');
-let totalSpent = document.querySelector('.total-spent');
-let bookingsList = document.querySelector('.bookings-list');
-let bookNewRoomButton = document.getElementById('book-new-room');
-let datePicker = document.getElementById('date');
-let datePickerLabel = document.querySelector('.date-picker');
-let findRoomsButton = document.getElementById('find-rooms');
-let dropDown = document.querySelector('.dropdown');
+const userGreeting = document.querySelector('.user-greeting');
+const totalSpent = document.querySelector('.total-spent');
+const bookingsList = document.querySelector('.bookings-list');
+const bookNewRoomButton = document.getElementById('book-new-room');
+const datePicker = document.getElementById('date');
+const datePickerLabel = document.querySelector('.date-picker');
+const findRoomsButton = document.getElementById('find-rooms');
+const dropDown = document.querySelector('.dropdown');
+const homeButton = document.getElementById('home-button');
+const logOutButton = document.getElementById('log-out');
 
 
 function hide(element) {
@@ -224,4 +226,6 @@ dropDown.addEventListener('click', function(e) {
       break;
   }
   filterRooms(roomType);
-})
+});
+
+homeButton.addEventListener('click', renderUserDashboard);
