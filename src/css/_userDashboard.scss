@@ -32,12 +32,14 @@ nav {
 .nav-links {
   display: flex;
   align-items: center;
-  width: 30%;
+  min-width: 30%;
   font-size: 20px;
-}
+  justify-content: space-around;
 
-.link {
-
+  & a:hover {
+    color: grey;
+    cursor: pointer;
+  }
 }
 
 .user-dash {
@@ -77,6 +79,7 @@ nav {
 .bookings-list {
   display: grid;
   grid-gap: 20px;
+  text-align: right;
 }
 
 .item {
@@ -101,6 +104,11 @@ nav {
   border-top: 1px solid #ccc;
   margin: 1em 0;
   padding: 0;
+}
+
+.item-avail {
+  @extend .item;
+  text-align: center;
 }
 
 /* Dropdown Button */
