@@ -141,7 +141,9 @@ function fiercelyApologize(whatWentWrong) {
     message =  `the date you've selected`
   }
   bookingsList.innerHTML += `
-    <h3>We're terribly sorry, but no rooms are available for ${message}. Please try another search!</h3>
+    <div class="item">
+      <h3>We're terribly sorry, but no rooms are available for ${message}. Please try another search!</h3>
+    </div>
   `;
 };
 
