@@ -34,6 +34,7 @@ const findRoomsButton = document.getElementById('find-rooms');
 const dropDown = document.querySelector('.dropdown');
 const homeButton = document.getElementById('home-button');
 const logOutButton = document.getElementById('log-out');
+const userDash = document.querySelector('.grid');
 
 
 function hide(element) {
@@ -46,6 +47,10 @@ function show(element) {
 
 function reset(element) {
   element.innerHTML = '';
+}
+
+function login() {
+  show(userDash);
 }
 
 function fetchData() {
