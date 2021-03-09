@@ -67,8 +67,16 @@ function renderUserDashboard() {
   userGreeting.innerText = allCustomers[3].name;
   totalSpent.innerText = allCustomers[3].findTotalSpent(allRooms, allBookings).toFixed(2);
   allCustomers[3].findMyBookings(allBookings).forEach(booking => {
+    let modifiedDate = booking.date.split('/').sort((a, b) => a - b).join('/');
+
+    let roomInfoForBooking = allRooms.find(room => room.number === booking.roomNumber);
     bookingsList.innerHTML += `
-      <section class="item">Date: ${booking.date} Room Number: ${booking.roomNumber}</section>
+      <section class="user-list">
+        <h3>${modifiedDate}</h3>
+        <p>Room ${booking.roomNumber}</p>
+        <p>${roomInfoForBooking.roomType}</p>
+        <p>$${roomInfoForBooking.costPerNight} / night</p>
+      </section>
     `;
   })
 }
