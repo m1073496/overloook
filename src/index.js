@@ -9,7 +9,9 @@ import './images/turing-logo.png';
 import './images/userIcon.png';
 
 import {
-  allCustomerDataAPI,
+  // allCustomerDataAPI,
+  getSingleUser,
+  singleCustomerDataAPI,
   bookingDataAPI,
   roomDataAPI
 } from './API.js';
@@ -18,7 +20,7 @@ import Customer from './Customer';
 import Room from './Room';
 import Booking from './Booking';
 
-let allCustomers;
+let thisCustomer;
 let allBookings;
 let allRooms;
 let dateSelected;
@@ -34,6 +36,10 @@ const dropDown = document.querySelector('.dropdown');
 const homeButton = document.getElementById('home-button');
 const logOutButton = document.getElementById('log-out');
 const userDash = document.querySelector('.grid');
+const userNameInput = document.getElementById('username');
+const passwordInput = document.getElementById('password');
+const loginButton = document.getElementById('login');
+const loginView = document.querySelector('.container');
 
 
 function hide(element) {
@@ -48,30 +54,59 @@ function reset(element) {
   element.innerHTML = '';
 }
 
-function login() {
-  show(userDash);
-}
+function findUserName() {
+  let possibleUsernames = [];
+  for (let i = 1; i < 51; i++) {
+    possibleUsernames.push(`customer${i}`);
+  };
 
-function fetchData() {
-  Promise.all([allCustomerDataAPI, bookingDataAPI, roomDataAPI])
-    .then((values) => {
-      createInstances(values);
-      renderUserDashboard();
-    })
-}
+  let foundUserName = possibleUsernames.find(username => username === userNameInput.value);
+
+  if (foundUserName && passwordInput.value === 'overlook2021') {
+    let customerNum;
+
+    if (foundUserName.length === 9) {
+      customerNum = foundUserName.charAt(8);
+    } else {
+      customerNum = foundUserName.charAt(8) + foundUserName.charAt(9);
+    };
+    return customerNum;
+  } else {
+    alert("Incorrect username/password combo, please try again 🦑")
+  };
+};
+
+function getUser() {
+  let customerNum = findUserName();
+
+  if (customerNum) {
+    Promise.all([getSingleUser(customerNum), bookingDataAPI, roomDataAPI])
+      .then((values) => {
+        createInstances(values);
+        login();
+      });
+    };
+};
 
 function createInstances(data) {
-  allCustomers = data[0].customers.map(customer => new Customer(customer));
+  thisCustomer = new Customer(data[0]);
   allBookings = data[1].bookings.map(booking => new Booking(booking));
   allRooms = data[2].rooms.map(room => new Room(room));
-}
+  console.log(thisCustomer, allBookings, allRooms)
+};
+
+function login() {
+  hide(loginView);
+  show(userDash);
+  renderUserDashboard();
+};
 
 function renderUserDashboard() {
   hide(dropDown);
   reset(bookingsList);
-  userGreeting.innerText = allCustomers[3].name;
-  totalSpent.innerText = allCustomers[3].findTotalSpent(allRooms, allBookings).toFixed(2);
-  allCustomers[3].findMyBookings(allBookings).forEach(booking => {
+  userGreeting.innerText = thisCustomer.name;
+  totalSpent.innerText = thisCustomer.findTotalSpent(allRooms, allBookings).toFixed(2);
+  thisCustomer.findMyBookings(allBookings).forEach(booking => {
     let modifiedDate = booking.date.split('/').sort((a, b) => a - b).join('/');
 
     let roomInfoForBooking = allRooms.find(room => room.number === booking.roomNumber);
@@ -212,9 +247,9 @@ function bookRoom(roomId) {
 
 
 
+loginButton.addEventListener('click', getUser);
 
-
-window.addEventListener('load', fetchData);
+// window.addEventListener('load', fetchData);
 
 bookNewRoomButton.addEventListener('click', bookNewRoom);
 
