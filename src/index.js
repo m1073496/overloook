@@ -1,10 +1,5 @@
-// This is the JavaScript entry file - your code begins here
-// Do not delete or rename this file ********
-
-// An example of how you tell webpack to use a CSS (SCSS) file
 import './css/base.scss';
 
-// An example of how you tell webpack to use an image (also need to link to it in the index.html)
 import './images/turing-logo.png';
 import './images/userIcon.png';
 
@@ -35,7 +30,7 @@ const findRoomsButton = document.getElementById('find-rooms');
 const dropDown = document.querySelector('.dropdown');
 const homeButton = document.getElementById('home-button');
 const logOutButton = document.getElementById('log-out');
-const userDash = document.querySelector('.grid');
+const userDash = document.getElementById('user-dashboard');
 const userNameInput = document.getElementById('username');
 const passwordInput = document.getElementById('password');
 const loginButton = document.getElementById('login');
@@ -92,7 +87,6 @@ function createInstances(data) {
   thisCustomer = new Customer(data[0]);
   allBookings = data[1].bookings.map(booking => new Booking(booking));
   allRooms = data[2].rooms.map(room => new Room(room));
-  console.log(thisCustomer, allBookings, allRooms)
 };
 
 function login() {
@@ -248,8 +242,6 @@ function bookRoom(roomId) {
 
 
 loginButton.addEventListener('click', getUser);
-
-// window.addEventListener('load', fetchData);
 
 bookNewRoomButton.addEventListener('click', bookNewRoom);
 
