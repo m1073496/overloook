@@ -4,6 +4,8 @@ import './images/turing-logo.png';
 import './images/userIcon.png';
 
 import {
+  checkForErrors,
+  postBookRoom,
   getSingleUser,
   singleCustomerDataAPI,
   bookingDataAPI,
@@ -104,6 +106,7 @@ function renderUserDashboard() {
 
   userGreeting.innerText = thisCustomer.name;
   totalSpent.innerText = thisCustomer.findTotalSpent(allRooms, allBookings).toFixed(2);
+
   thisCustomer.findMyBookings(allBookings).forEach(booking => {
     let modifiedDate = booking.date.split('/').sort((a, b) => a - b).join('/');
 
@@ -217,7 +220,6 @@ function filterRooms(roomType) {
   let modifiedDate = dateSelected.replaceAll("-", "/");
   let roomsAvailable = allRooms.filter(room => room.findAvailability(modifiedDate, allBookings) === true);
 
-
   let filteredRooms = roomsAvailable.filter(room => room.roomType === roomType && room.date !== dateSelected);
   if (filteredRooms.length >= 1) {
     displayRoomsAvailable(filteredRooms);
@@ -229,23 +231,12 @@ function filterRooms(roomType) {
 function bookRoom(roomId) {
   let date = dateSelected.replaceAll('-', '/');
 
-  fetch("http://localhost:3001/api/v1/bookings", {
-    method: 'POST',
-    headers: {
-  	   'Content-Type': 'application/json'
-     },
-     body: JSON.stringify({
-       "userID": thisCustomer.id,
-       "date": date,
-       "roomNumber": Number(roomId)
-     }),
-  })
-    .then(response => response.json())
-    .then(json => {
-      allBookings.unshift(new Booking(json.newBooking));
+  postBookRoom(roomId, thisCustomer.id, date, allBookings)
+    .then(checkForErrors)
+    .then(data => {
+      allBookings.unshift(new Booking(data.newBooking));
       renderUserDashboard();
     })
-    .catch(err => alert('Something went wrong, please try again 🦑'));
 };
 
 
