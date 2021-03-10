@@ -140,17 +140,34 @@ function bookNewRoom() {
   show(findRoomsButton);
 }
 
-function searchForRooms(date) {
+function findAvailabileRooms(date) {
   reset(bookingsList);
   show(dropDown);
 
   let modifiedDate = date.replaceAll("-", "/");
   let roomsAvailable = allRooms.filter(room => room.findAvailability(modifiedDate, allBookings) === true);
 
+  return roomsAvailable;
+}
+
+function searchForRooms(date) {
+  let roomsAvailable = findAvailabileRooms(date);
+
   if(roomsAvailable.length >= 1) {
     displayRoomsAvailable(roomsAvailable);
   } else {
     fiercelyApologize();
+  }
+};
+
+function filterRooms(roomType) {
+  let roomsAvailable = findAvailabileRooms(dateSelected);
+  let filteredRooms = roomsAvailable.filter(room => room.roomType === roomType && room.date !== dateSelected);
+
+  if (filteredRooms.length >= 1) {
+    displayRoomsAvailable(filteredRooms);
+  } else {
+    fiercelyApologize('no rooms');
   }
 };
 
@@ -214,19 +231,19 @@ function fiercelyApologize(whatWentWrong) {
   `;
 };
 
-function filterRooms(roomType) {
-  reset(bookingsList);
-
-  let modifiedDate = dateSelected.replaceAll("-", "/");
-  let roomsAvailable = allRooms.filter(room => room.findAvailability(modifiedDate, allBookings) === true);
-
-  let filteredRooms = roomsAvailable.filter(room => room.roomType === roomType && room.date !== dateSelected);
-  if (filteredRooms.length >= 1) {
-    displayRoomsAvailable(filteredRooms);
-  } else {
-    fiercelyApologize('no rooms');
-  }
-};
+// function filterRooms(roomType) {
+//   reset(bookingsList);
+//
+//   let modifiedDate = dateSelected.replaceAll("-", "/");
+//   let roomsAvailable = allRooms.filter(room => room.findAvailability(modifiedDate, allBookings) === true);
+//
+//   let filteredRooms = roomsAvailable.filter(room => room.roomType === roomType && room.date !== dateSelected);
+//   if (filteredRooms.length >= 1) {
+//     displayRoomsAvailable(filteredRooms);
+//   } else {
+//     fiercelyApologize('no rooms');
+//   }
+// };
 
 function bookRoom(roomId) {
   let date = dateSelected.replaceAll('-', '/');
