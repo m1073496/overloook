@@ -1,12 +1,5 @@
-
-$primary-background: #143B4C;
-$pink: #EA94B0;
-$tan: #FEEFD7;
-$dark-green: #0B646D;
-$yellow: #EDAB4D;
-$light-blue: #D2F3F2;
-
 @import 'reset';
+@import 'variables';
 @import 'login';
 @import 'mediaQueriesLogin';
 @import 'userDashboard';

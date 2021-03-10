@@ -19,29 +19,29 @@
   grid-row: 2 / 8;
   grid-column: 1 / 4;
   background: $pink;
-  display: flex;
-  flex-direction: column;
+  @include flex-column();
   align-items: center;
-  justify-content:center;
-  box-shadow: 0px 0px 50px #1E2630;
+  justify-content: center;
+  box-shadow: 0px 0px $fifty #1E2630;
   opacity: 70%;
   border-radius: 5px;
 }
 
 .credentials {
   width: 300px;
-  display: flex;
+  @include flex();
   flex-direction: column;
-  justify-content: space-between;
   padding: 20px;
 }
 
-#username {
+#username,
+#password {
   margin: 5px;
 }
 
-#password {
-  margin: 5px;
+#input-incorrect {
+  color: $dark-green;
+  text-align: center;
 }
 
 #login {

@@ -4,7 +4,6 @@ import './images/turing-logo.png';
 import './images/userIcon.png';
 
 import {
-  // allCustomerDataAPI,
   getSingleUser,
   singleCustomerDataAPI,
   bookingDataAPI,
@@ -34,6 +33,7 @@ const userDash = document.getElementById('user-dashboard');
 const userNameInput = document.getElementById('username');
 const passwordInput = document.getElementById('password');
 const loginButton = document.getElementById('login');
+const inputIncorrect = document.getElementById('input-incorrect');
 const loginView = document.querySelector('.container');
 
 
@@ -67,11 +67,12 @@ function findUserName() {
     };
     return customerNum;
   } else {
-    alert("Incorrect username/password combo, please try again 🦑")
+    show(inputIncorrect);
   };
 };
 
 function getUser() {
+  hide(inputIncorrect);
   let customerNum = findUserName();
 
   if (customerNum) {
@@ -177,7 +178,7 @@ function displayRoomsAvailable(roomsAvailable) {
 
 function findBidetMessage(room) {
   let newBooking, bookingsList;
-  
+
   if (room.bidet) {
     newBooking = 'available';
     bookingsList = '(bidet available)';
@@ -242,7 +243,7 @@ function bookRoom(roomId) {
       allBookings.unshift(new Booking(json.newBooking));
       renderUserDashboard();
     })
-    .catch(err => alert('oh no'));
+    .catch(err => alert('Something went wrong, please try again 🦑'));
 };
 
 
