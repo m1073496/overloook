@@ -4,6 +4,8 @@ import './images/turing-logo.png';
 import './images/userIcon.png';
 
 import {
+  checkForErrors,
+  postBookRoom,
   getSingleUser,
   singleCustomerDataAPI,
   bookingDataAPI,
@@ -58,26 +60,27 @@ function findUserName() {
   let foundUserName = possibleUsernames.find(username => username === userNameInput.value);
 
   if (foundUserName && passwordInput.value === 'overlook2021') {
-    let customerNum;
-
-    if (foundUserName.length === 9) {
-      customerNum = foundUserName.charAt(8);
-    } else {
-      customerNum = foundUserName.charAt(8) + foundUserName.charAt(9);
-    };
-    return customerNum;
+    return verifyLogIn(foundUserName);
   } else {
     show(inputIncorrect);
   };
 };
 
+function verifyLogIn(foundUserName) {
+  let customerNum;
+
+  if (foundUserName.length === 9) {
+    customerNum = foundUserName.charAt(8);
+  } else {
+    customerNum = foundUserName.charAt(8) + foundUserName.charAt(9);
+  };
+  return customerNum;
+};
+
 function getUser() {
-  hide(inputIncorrect);
   let customerNum = findUserName();
 
   if (customerNum) {
-    userNameInput.value = "";
-    passwordInput.value = "";
     Promise.all([getSingleUser(customerNum), bookingDataAPI, roomDataAPI])
       .then((values) => {
         createInstances(values);
@@ -93,17 +96,17 @@ function createInstances(data) {
 };
 
 function login() {
+  userNameInput.value = "";
+  passwordInput.value = "";
+  hide(inputIncorrect);
   hide(loginView);
   show(userDash);
   renderUserDashboard();
 };
 
 function renderUserDashboard() {
-
   displayDash();
 
-  userGreeting.innerText = thisCustomer.name;
-  totalSpent.innerText = thisCustomer.findTotalSpent(allRooms, allBookings).toFixed(2);
   thisCustomer.findMyBookings(allBookings).forEach(booking => {
     let modifiedDate = booking.date.split('/').sort((a, b) => a - b).join('/');
 
@@ -111,8 +114,11 @@ function renderUserDashboard() {
     let bidetMessage = findBidetMessage(roomInfoForBooking);
     bookingsList.innerHTML += `
       <section class="item">
-        <h3>${modifiedDate}</h3>
-        <p class="room-num">Room ${booking.roomNumber}</p>
+        <div>
+          <h3>Your reservation for: </h3>
+          <h3>${modifiedDate}</h3>
+        </div>
+        <p class="room-num room">Room ${booking.roomNumber}</p>
         <div class="line"></div>
         <p class="room-num">A ${roomInfoForBooking.roomType} with ${roomInfoForBooking.numBeds} ${roomInfoForBooking.bedSize} bed(s), starting at $${roomInfoForBooking.costPerNight} / night.</p>
         <p class="room-num">${bidetMessage.bookingsList}</p>
@@ -122,32 +128,68 @@ function renderUserDashboard() {
 };
 
 function displayDash() {
+  userGreeting.innerText = thisCustomer.name;
+  totalSpent.innerText = thisCustomer.findTotalSpent(allRooms, allBookings).toFixed(2);
   hide(datePicker);
   hide(datePickerLabel);
   hide(findRoomsButton);
   hide(dropDown);
   show(bookNewRoomButton);
   reset(bookingsList);
-}
+};
+
+function findBidetMessage(room) {
+  let newBooking, bookingsList;
+
+  if (room.bidet) {
+    newBooking = 'available';
+    bookingsList = '(bidet available)';
+  } else {
+    newBooking = 'not available';
+    bookingsList = '(bidet unavailable)';
+  };
+
+  return  {
+    newBooking,
+    bookingsList
+  };
+};
 
 function bookNewRoom() {
   hide(bookNewRoomButton);
   show(datePicker);
   show(datePickerLabel);
   show(findRoomsButton);
-}
+};
 
-function searchForRooms(date) {
+function findAvailabileRooms(date) {
   reset(bookingsList);
   show(dropDown);
 
   let modifiedDate = date.replaceAll("-", "/");
   let roomsAvailable = allRooms.filter(room => room.findAvailability(modifiedDate, allBookings) === true);
 
+  return roomsAvailable;
+};
+
+function searchForRooms(date) {
+  let roomsAvailable = findAvailabileRooms(date);
+
   if(roomsAvailable.length >= 1) {
     displayRoomsAvailable(roomsAvailable);
   } else {
     fiercelyApologize();
+  }
+};
+
+function filterRooms(roomType) {
+  let roomsAvailable = findAvailabileRooms(dateSelected);
+  let filteredRooms = roomsAvailable.filter(room => room.roomType === roomType && room.date !== dateSelected);
+
+  if (filteredRooms.length >= 1) {
+    displayRoomsAvailable(filteredRooms);
+  } else {
+    fiercelyApologize('no rooms');
   }
 };
 
@@ -170,27 +212,12 @@ function displayRoomsAvailable(roomsAvailable) {
     `;
 
     newBooking.addEventListener('click', function(e) {
-      let roomId = e.target.id;
-      bookRoom(roomId);
+      if(e.target.id) {
+        let roomId = e.target.id;
+        bookRoom(roomId);
+      }
     });
   });
-};
-
-function findBidetMessage(room) {
-  let newBooking, bookingsList;
-
-  if (room.bidet) {
-    newBooking = 'available';
-    bookingsList = '(bidet available)';
-  } else {
-    newBooking = 'not available';
-    bookingsList = '(bidet unavailable)';
-  };
-
-  return  {
-    newBooking,
-    bookingsList
-  };
 };
 
 function fiercelyApologize(whatWentWrong) {
@@ -209,57 +236,16 @@ function fiercelyApologize(whatWentWrong) {
   `;
 };
 
-function filterRooms(roomType) {
-  reset(bookingsList);
-
-  let modifiedDate = dateSelected.replaceAll("-", "/");
-  let roomsAvailable = allRooms.filter(room => room.findAvailability(modifiedDate, allBookings) === true);
-
-
-  let filteredRooms = roomsAvailable.filter(room => room.roomType === roomType && room.date !== dateSelected);
-  if (filteredRooms.length >= 1) {
-    displayRoomsAvailable(filteredRooms);
-  } else {
-    fiercelyApologize('no rooms');
-  }
-};
-
 function bookRoom(roomId) {
   let date = dateSelected.replaceAll('-', '/');
 
-  fetch("http://localhost:3001/api/v1/bookings", {
-    method: 'POST',
-    headers: {
-  	   'Content-Type': 'application/json'
-     },
-     body: JSON.stringify({
-       "userID": thisCustomer.id,
-       "date": date,
-       "roomNumber": Number(roomId)
-     }),
-  })
-    .then(response => response.json())
-    .then(json => {
-      allBookings.unshift(new Booking(json.newBooking));
+  postBookRoom(roomId, thisCustomer.id, date, allBookings)
+    .then(checkForErrors)
+    .then(data => {
+      allBookings.unshift(new Booking(data.newBooking));
       renderUserDashboard();
     })
-    .catch(err => alert('Something went wrong, please try again 🦑'));
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -296,4 +282,4 @@ homeButton.addEventListener('click', renderUserDashboard);
 logOutButton.addEventListener('click', function() {
   hide(userDash);
   show(loginView);
-})
+});
