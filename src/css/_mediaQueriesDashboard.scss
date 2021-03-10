@@ -11,8 +11,8 @@
   }
 
   img {
-    height: 50px;
-    width: 50px;
+    height: $fifty;
+    width: $fifty;
   }
 
   .userDash {
@@ -27,8 +27,6 @@
 
 }
 
-
-
 @media screen and (max-width: 1025px) and (min-width: 551px) {
 
   .grid {
@@ -42,7 +40,7 @@
     grid-row: 1 / 2;
 
     h1 {
-      font-size: 50px;
+      font-size: $fifty;
     }
 
     a {
