@@ -170,8 +170,10 @@ function displayRoomsAvailable(roomsAvailable) {
     `;
 
     newBooking.addEventListener('click', function(e) {
-      let roomId = e.target.id;
-      bookRoom(roomId);
+      if(e.target.id) {
+        let roomId = e.target.id;
+        bookRoom(roomId);
+      }
     });
   });
 };
@@ -245,21 +247,6 @@ function bookRoom(roomId) {
     })
     .catch(err => alert('Something went wrong, please try again 🦑'));
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
