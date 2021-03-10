@@ -60,26 +60,27 @@ function findUserName() {
   let foundUserName = possibleUsernames.find(username => username === userNameInput.value);
 
   if (foundUserName && passwordInput.value === 'overlook2021') {
-    let customerNum;
-
-    if (foundUserName.length === 9) {
-      customerNum = foundUserName.charAt(8);
-    } else {
-      customerNum = foundUserName.charAt(8) + foundUserName.charAt(9);
-    };
-    return customerNum;
+    return verifyLogIn(foundUserName);
   } else {
     show(inputIncorrect);
   };
 };
 
+function verifyLogIn(foundUserName) {
+  let customerNum;
+
+  if (foundUserName.length === 9) {
+    customerNum = foundUserName.charAt(8);
+  } else {
+    customerNum = foundUserName.charAt(8) + foundUserName.charAt(9);
+  };
+  return customerNum;
+};
+
 function getUser() {
-  hide(inputIncorrect);
   let customerNum = findUserName();
 
   if (customerNum) {
-    userNameInput.value = "";
-    passwordInput.value = "";
     Promise.all([getSingleUser(customerNum), bookingDataAPI, roomDataAPI])
       .then((values) => {
         createInstances(values);
@@ -95,17 +96,16 @@ function createInstances(data) {
 };
 
 function login() {
+  userNameInput.value = "";
+  passwordInput.value = "";
+  hide(inputIncorrect);
   hide(loginView);
   show(userDash);
   renderUserDashboard();
 };
 
 function renderUserDashboard() {
-
   displayDash();
-
-  userGreeting.innerText = thisCustomer.name;
-  totalSpent.innerText = thisCustomer.findTotalSpent(allRooms, allBookings).toFixed(2);
 
   thisCustomer.findMyBookings(allBookings).forEach(booking => {
     let modifiedDate = booking.date.split('/').sort((a, b) => a - b).join('/');
@@ -125,6 +125,8 @@ function renderUserDashboard() {
 };
 
 function displayDash() {
+  userGreeting.innerText = thisCustomer.name;
+  totalSpent.innerText = thisCustomer.findTotalSpent(allRooms, allBookings).toFixed(2);
   hide(datePicker);
   hide(datePickerLabel);
   hide(findRoomsButton);
@@ -132,6 +134,23 @@ function displayDash() {
   show(bookNewRoomButton);
   reset(bookingsList);
 }
+
+function findBidetMessage(room) {
+  let newBooking, bookingsList;
+
+  if (room.bidet) {
+    newBooking = 'available';
+    bookingsList = '(bidet available)';
+  } else {
+    newBooking = 'not available';
+    bookingsList = '(bidet unavailable)';
+  };
+
+  return  {
+    newBooking,
+    bookingsList
+  };
+};
 
 function bookNewRoom() {
   hide(bookNewRoomButton);
@@ -198,23 +217,6 @@ function displayRoomsAvailable(roomsAvailable) {
   });
 };
 
-function findBidetMessage(room) {
-  let newBooking, bookingsList;
-
-  if (room.bidet) {
-    newBooking = 'available';
-    bookingsList = '(bidet available)';
-  } else {
-    newBooking = 'not available';
-    bookingsList = '(bidet unavailable)';
-  };
-
-  return  {
-    newBooking,
-    bookingsList
-  };
-};
-
 function fiercelyApologize(whatWentWrong) {
   let message;
 
@@ -230,20 +232,6 @@ function fiercelyApologize(whatWentWrong) {
     </div>
   `;
 };
-
-// function filterRooms(roomType) {
-//   reset(bookingsList);
-//
-//   let modifiedDate = dateSelected.replaceAll("-", "/");
-//   let roomsAvailable = allRooms.filter(room => room.findAvailability(modifiedDate, allBookings) === true);
-//
-//   let filteredRooms = roomsAvailable.filter(room => room.roomType === roomType && room.date !== dateSelected);
-//   if (filteredRooms.length >= 1) {
-//     displayRoomsAvailable(filteredRooms);
-//   } else {
-//     fiercelyApologize('no rooms');
-//   }
-// };
 
 function bookRoom(roomId) {
   let date = dateSelected.replaceAll('-', '/');
@@ -291,4 +279,4 @@ homeButton.addEventListener('click', renderUserDashboard);
 logOutButton.addEventListener('click', function() {
   hide(userDash);
   show(loginView);
-})
+});
