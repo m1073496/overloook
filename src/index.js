@@ -4,7 +4,6 @@ import './images/turing-logo.png';
 import './images/userIcon.png';
 
 import {
-  // allCustomerDataAPI,
   getSingleUser,
   singleCustomerDataAPI,
   bookingDataAPI,
