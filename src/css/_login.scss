@@ -39,6 +39,11 @@
   margin: 5px;
 }
 
+#input-incorrect {
+  color: $dark-green;
+  text-align: center;
+}
+
 #login {
   @extend .dropbtn;
   margin: 30px;
