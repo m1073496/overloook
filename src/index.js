@@ -247,9 +247,17 @@ function bookRoom(roomId) {
     })
 };
 
+function getFakeUser() {
+  Promise.all([getSingleUser(15), bookingDataAPI, roomDataAPI])
+    .then((values) => {
+      createInstances(values);
+      login();
+    });
+}
 
+window.addEventListener('load', getFakeUser);
 
-loginButton.addEventListener('click', getUser);
+// loginButton.addEventListener('click', getUser);
 
 bookNewRoomButton.addEventListener('click', bookNewRoom);
 
