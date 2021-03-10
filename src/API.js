@@ -1,5 +1,3 @@
-import Booking from './Booking';
-
 export const checkForErrors = response => {
   if (!response.ok) {
     throw new Error('Oops, something went wrong. Try again in a few! 😁');

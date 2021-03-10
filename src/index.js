@@ -114,8 +114,11 @@ function renderUserDashboard() {
     let bidetMessage = findBidetMessage(roomInfoForBooking);
     bookingsList.innerHTML += `
       <section class="item">
-        <h3>${modifiedDate}</h3>
-        <p class="room-num">Room ${booking.roomNumber}</p>
+        <div>
+          <h3>Your reservation for: </h3>
+          <h3>${modifiedDate}</h3>
+        </div>
+        <p class="room-num room">Room ${booking.roomNumber}</p>
         <div class="line"></div>
         <p class="room-num">A ${roomInfoForBooking.roomType} with ${roomInfoForBooking.numBeds} ${roomInfoForBooking.bedSize} bed(s), starting at $${roomInfoForBooking.costPerNight} / night.</p>
         <p class="room-num">${bidetMessage.bookingsList}</p>
@@ -133,7 +136,7 @@ function displayDash() {
   hide(dropDown);
   show(bookNewRoomButton);
   reset(bookingsList);
-}
+};
 
 function findBidetMessage(room) {
   let newBooking, bookingsList;
@@ -157,7 +160,7 @@ function bookNewRoom() {
   show(datePicker);
   show(datePickerLabel);
   show(findRoomsButton);
-}
+};
 
 function findAvailabileRooms(date) {
   reset(bookingsList);
@@ -167,7 +170,7 @@ function findAvailabileRooms(date) {
   let roomsAvailable = allRooms.filter(room => room.findAvailability(modifiedDate, allBookings) === true);
 
   return roomsAvailable;
-}
+};
 
 function searchForRooms(date) {
   let roomsAvailable = findAvailabileRooms(date);
