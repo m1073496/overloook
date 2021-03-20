@@ -95,6 +95,8 @@ If you see `Compiled successfully` in your terminal, the application is running 
 * Webpack
 * Fetch API
 * Lighthouse
+* Mocha
+* Chai
 
 ---
 ## Features
