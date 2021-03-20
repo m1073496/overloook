@@ -1,6 +1,6 @@
 # Overlook
 
-A [Front-End Project](https://frontend.turing.io/projects/overlook.html) by [Jessica Justice](https://github.com/m1073496)
+A [Front-End Project](https://frontend.turing.io/projects/overlook.html) by [Jessica Justice](https://github.com/m1073496).
 
 
 
