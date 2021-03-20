@@ -87,10 +87,9 @@ If you see `Compiled successfully` in your terminal, the application is running 
 
 ## Technologies
 
-* HTML
-* CSS
-* SASS
-* Javascript
+* HTML5
+* SCSS
+* Vanilla JavaScript ES6
 * Git
 * GitHub
 * Webpack
