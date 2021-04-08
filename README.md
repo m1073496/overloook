@@ -106,13 +106,13 @@ If you see `Compiled successfully` in your terminal, the application is running 
 + [Responsiveness](#responsiveness)
 
 
-## Log-In
+## Log-In & Out
 
 
-<img width="1427" alt="Screen Shot 2021-04-07 at 8 56 01 PM" src="https://user-images.githubusercontent.com/73088654/113961705-b251ae80-97e3-11eb-91af-73d4c9690d47.png">
+![](https://media.giphy.com/media/CDSYdF4UHu17OTocRs/giphy.gif)
 
 
-## User Dashboard
+## Search and Book Room
 
 
 <img width="1276" alt="Screen Shot 2021-04-07 at 7 32 39 PM" src="https://user-images.githubusercontent.com/73088654/113954948-0e163a80-97d8-11eb-8ede-11f50deca6cb.png">
