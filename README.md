@@ -133,7 +133,7 @@ If you see `Compiled successfully` in your terminal, the application is running 
 ---
 ## Future Iterations
 
-* Better styling 😅
+* Add hotel room photos
 * Implement an intermediary view that lets the user know their room was booked before returning to the dashboard view
 * Implementing the Manager extension:
   - Creating a manager log in who can add or remove booking for individual customers
