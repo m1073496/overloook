@@ -4,8 +4,6 @@
     display: grid;
     grid-template-rows: repeat(8, 1fr);
     grid-template-columns: repeat(7, 1fr);
-    background: url("https://images.unsplash.com/photo-1505492537188-de71a52767cb?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80") no-repeat center;
-    background-size: cover;
   }
 
   .login-header {
@@ -21,6 +19,10 @@
     grid-column: 1 / 8;
     opacity: 90%;
     border: solid .5px grey;
+    background-image: url("https://www.flaticon.com/svg/vstatic/svg/3004/3004703.svg?token=exp=1617849209~hmac=297d9f1f35748a0dc26939eb5ec23ad5");
+    background-repeat: none;
+    background-position: center;
+    background-size: auto;
 
     &:hover {
       opacity: 100%;
@@ -46,8 +48,6 @@
     display: grid;
     grid-template-rows: repeat(8, 1fr);
     grid-template-columns: repeat(7, 1fr);
-    background: url("https://images.unsplash.com/photo-1505492537188-de71a52767cb?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80") no-repeat center;
-    background-size: cover;
   }
 
   .login-header {
@@ -62,6 +62,10 @@
     grid-column: 1 / 8;
     opacity: 90%;
     border: solid .5px grey;
+    background-image: url("https://www.flaticon.com/svg/vstatic/svg/3004/3004703.svg?token=exp=1617849209~hmac=297d9f1f35748a0dc26939eb5ec23ad5");
+    background-repeat: none;
+    background-position: center;
+    background-size: auto;
 
       &:hover {
         opacity: 100%;

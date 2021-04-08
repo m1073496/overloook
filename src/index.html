@@ -10,15 +10,24 @@
   <body>
 
       <section class="container">
-        <h1 class="login-header">Overlook</h1>
+
+        <article class="credentials">
+          <span class="input-label">Username: </span><input type="text" id="username"></input>
+          <span class=input-label>Password: </span><input type="text" id="password"></input>
+          <p class="hidden" id="input-incorrect">Incorrect username/password combo, please try again 🦑</p>
+          <button id="login">Log in</button>
+        </article>
 
         <section class="login-view">
-          <article class="credentials">
+          <!-- <article class="credentials">
             <span class="input-label">Username: </span><input type="text" id="username"></input>
             <span class=input-label>Password: </span><input type="text" id="password"></input>
             <p class="hidden" id="input-incorrect">Incorrect username/password combo, please try again 🦑</p>
             <button id="login">Log in</button>
-          </article>
+          </article> -->
+
+          <section class="hotel"></section>
+
         </section>
 
       </section>
@@ -70,7 +79,10 @@
               </div>
           </div>
 
-          <section class="bookings-list"></section>
+          <h2 class='prev-res'>Previous Reservations:</h2>
+          <section class="bookings-list">
+
+          </section>
 
         </main>
       </section>

@@ -2,6 +2,9 @@ import './css/base.scss';
 
 import './images/turing-logo.png';
 import './images/userIcon.png';
+import './images/bed.png';
+import './images/reception.svg';
+import './images/hotel.svg';
 
 import {
   checkForErrors,
@@ -9,7 +12,8 @@ import {
   getSingleUser,
   singleCustomerDataAPI,
   bookingDataAPI,
-  roomDataAPI
+  roomDataAPI,
+  getHotelPhotos
 } from './API.js';
 
 import Customer from './Customer';
@@ -114,13 +118,16 @@ function renderUserDashboard() {
     let bidetMessage = findBidetMessage(roomInfoForBooking);
     bookingsList.innerHTML += `
       <section class="item">
-        <div>
-          <h3>Your reservation for: </h3>
-          <h3>${modifiedDate}</h3>
+        <div class="hotel-icon">
+          <img src='/images/hotel.svg' width='100px' height='100px' class='hotel-icon'>
         </div>
-        <p class="room-num room">Room ${booking.roomNumber}</p>
         <div class="line"></div>
-        <p class="room-num">A ${roomInfoForBooking.roomType} with ${roomInfoForBooking.numBeds} ${roomInfoForBooking.bedSize} bed(s), starting at $${roomInfoForBooking.costPerNight} / night.</p>
+        <h3 class='res-date'>Your reservation for: ${modifiedDate}</h3>
+        <p class="room-num room">${roomInfoForBooking.roomType}</p>
+        <p class="room-num">Room ${booking.roomNumber}</p>
+
+        <p class="room-num" ><img src="./images/bed.png" width="30px" height="30px"></>   ${roomInfoForBooking.numBeds} ${roomInfoForBooking.bedSize} bed(s)</p>
+        <p class="room-num" >Starting at $${roomInfoForBooking.costPerNight} / night.</p>
         <p class="room-num">${bidetMessage.bookingsList}</p>
       </section>
     `;
@@ -207,7 +214,7 @@ function displayRoomsAvailable(roomsAvailable) {
         <p>Bed Size: ${room.bedSize}</p>
         <p>Bidet: ${findBidetMessage(room).newBooking}</p>
         <p>Nightly Rate: $${room.costPerNight}</p>
-        <button class="book-now-button" id="${room.number}">Book Now!</button>
+        <img src='./images/reception.svg' width='30px' height='30px'>  <button class="book-now-button" id="${room.number}" >Book Now!</button>
       </section>
     `;
 
