@@ -115,7 +115,7 @@ If you see `Compiled successfully` in your terminal, the application is running 
 ## User Dashboard
 
 
-![](https://media.giphy.com/media/rLU2vF8QP39gy07aaW/giphy.gif)
+<img width="1276" alt="Screen Shot 2021-04-07 at 7 32 39 PM" src="https://user-images.githubusercontent.com/73088654/113954948-0e163a80-97d8-11eb-8ede-11f50deca6cb.png">
 
 
 ## Responsiveness
