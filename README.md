@@ -101,28 +101,17 @@ If you see `Compiled successfully` in your terminal, the application is running 
 ---
 ## Features
 
-+ [Log-In](#log-in)
-+ [User Dashboard](#user-dashboard)
-+ [Responsiveness](#responsiveness)
 
-
-## Log-In & Out
+### Log-In & Out
 
 
 ![](https://media.giphy.com/media/CDSYdF4UHu17OTocRs/giphy.gif)
 
 
-## Search and Book Room
+### Search and Book Room
 
 
 ![](https://media.giphy.com/media/CcvQZD6UkjwESV9K55/giphy.gif)
-
-
-## Responsiveness
-
-
-
-
 
 
 
