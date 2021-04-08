@@ -115,14 +115,12 @@ If you see `Compiled successfully` in your terminal, the application is running 
 ## Search and Book Room
 
 
-<img width="1276" alt="Screen Shot 2021-04-07 at 7 32 39 PM" src="https://user-images.githubusercontent.com/73088654/113954948-0e163a80-97d8-11eb-8ede-11f50deca6cb.png">
+![](https://media.giphy.com/media/CcvQZD6UkjwESV9K55/giphy.gif)
 
 
 ## Responsiveness
 
-![](https://media.giphy.com/media/LlfJl59IjapuzuWGDY/giphy.gif)
 
-![](https://media.giphy.com/media/LMPWqjBjI7x2KLciy4/giphy.gif)
 
 
 
