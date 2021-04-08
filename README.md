@@ -109,7 +109,7 @@ If you see `Compiled successfully` in your terminal, the application is running 
 ## Log-In
 
 
-![](https://media.giphy.com/media/9oz1m9y304Gx21GS3x/giphy.gif)
+<img width="1427" alt="Screen Shot 2021-04-07 at 8 56 01 PM" src="https://user-images.githubusercontent.com/73088654/113961705-b251ae80-97e3-11eb-91af-73d4c9690d47.png">
 
 
 ## User Dashboard
